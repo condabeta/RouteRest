@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+env/
+*.sqlite3
+db.sqlite3
+backend/staticfiles/
+
+# Environment
+.env
+.env.local
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Playwright (used only for local smoke testing)
+test-results/
+playwright-report/
+*.png
+!frontend/public/*.svg

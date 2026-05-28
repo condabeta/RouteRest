@@ -1,0 +1,20 @@
+# One-click Render Blueprint for the Django backend.
+# Frontend deploys separately to Vercel (see README).
+services:
+  - type: web
+    name: routerest-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn eld_backend.wsgi:application"
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: "*"
+      - key: CORS_ALLOW_ALL
+        value: "True"
+      - key: PYTHON_VERSION
+        value: "3.12.7"
