@@ -69,8 +69,25 @@ export default function RouteMap({ plan }) {
     { key: "dropoff", color: "#dc2626", label: "D", title: "Drop-off" },
   ];
 
+  const legend = [
+    { c: "#3b82f6", t: "Current" },
+    { c: "#16a34a", t: "Pickup" },
+    { c: "#dc2626", t: "Drop-off" },
+    { c: "#f59e0b", t: "Fuel" },
+    { c: "#7c3aed", t: "Rest" },
+    { c: "#0ea5e9", t: "Break" },
+  ];
+
   return (
     <div className="map-wrap">
+      <div className="map-legend">
+        {legend.map((l) => (
+          <div className="row" key={l.t}>
+            <span className="dot" style={{ background: l.c }} />
+            {l.t}
+          </div>
+        ))}
+      </div>
       <MapContainer
         bounds={bounds.length > 1 ? bounds : undefined}
         center={bounds.length === 1 ? bounds[0] : [39.5, -98.35]}

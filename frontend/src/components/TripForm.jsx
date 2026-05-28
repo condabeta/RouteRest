@@ -88,6 +88,8 @@ export default function TripForm({ onSubmit, loading }) {
             </div>
           </div>
 
+          <div className="route-connector" />
+
           <div className="field">
             <label>Pickup location</label>
             <div className="input-wrap">
@@ -100,6 +102,8 @@ export default function TripForm({ onSubmit, loading }) {
               />
             </div>
           </div>
+
+          <div className="route-connector" />
 
           <div className="field">
             <label>Drop-off location</label>
