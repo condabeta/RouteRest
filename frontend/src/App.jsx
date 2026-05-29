@@ -85,6 +85,16 @@ export default function App() {
 
           {plan && (
             <>
+              {/* Brief site intro above the map */}
+              <div className="site-intro">
+                <h2>Your trip, mapped and logged.</h2>
+                <p>
+                  RouteRest turns your route and remaining cycle hours into a
+                  complete, HOS-compliant plan — every fuel stop, 30-minute
+                  break, and 10-hour rest, plus ready-to-submit daily ELD logs.
+                </p>
+              </div>
+
               {/* Route Map on top, full width */}
               <div className="card">
                 <div className="card-header">
@@ -93,11 +103,6 @@ export default function App() {
                     OpenStreetMap · {Math.round(plan.summary.total_distance_miles)} mi
                   </span>
                 </div>
-                <p className="map-intro">
-                  RouteRest plots your full route and marks every required stop —
-                  fueling, 30-minute breaks, and 10-hour rests — so the drive stays
-                  within federal Hours-of-Service limits.
-                </p>
                 <RouteMap plan={plan} />
               </div>
 
@@ -157,30 +162,75 @@ export default function App() {
           </nav>
 
           <div className="footer-phone" aria-hidden="true">
-            <svg className="phone-gps" viewBox="0 0 92 150" xmlns="http://www.w3.org/2000/svg">
-              <rect className="phone-body" x="3" y="2" width="86" height="146" rx="15" />
-              <rect className="phone-screen" x="9" y="13" width="74" height="124" rx="9" />
-              <rect className="notch" x="36" y="7" width="20" height="3" rx="1.5" />
-              <g className="roads">
-                <path d="M9 56 H83" />
-                <path d="M9 100 H83" />
-                <path d="M34 13 V137" />
-                <path d="M62 13 V137" />
+            <svg className="phone-mock" viewBox="0 0 120 244" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="pframe" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#4b515d" />
+                  <stop offset="0.5" stopColor="#23272f" />
+                  <stop offset="1" stopColor="#30353f" />
+                </linearGradient>
+                <linearGradient id="pgloss" x1="0" y1="0" x2="0.7" y2="1">
+                  <stop offset="0" stopColor="#ffffff" stopOpacity="0.22" />
+                  <stop offset="0.35" stopColor="#ffffff" stopOpacity="0" />
+                </linearGradient>
+                <clipPath id="pscreen">
+                  <rect x="8" y="9" width="104" height="226" rx="19" />
+                </clipPath>
+              </defs>
+
+              {/* body + side buttons */}
+              <rect x="2" y="2" width="116" height="240" rx="26" fill="url(#pframe)" stroke="#0e1116" strokeWidth="1.5" />
+              <rect x="0.5" y="58" width="2" height="14" rx="1" fill="#15181e" />
+              <rect x="0.5" y="80" width="2" height="22" rx="1" fill="#15181e" />
+              <rect x="117.5" y="74" width="2" height="30" rx="1" fill="#15181e" />
+
+              <g clipPath="url(#pscreen)">
+                {/* map base */}
+                <rect x="8" y="9" width="104" height="226" fill="#e8edf0" />
+                <path d="M8 168 Q44 158 70 176 T112 168 V210 H8 Z" fill="#bfe1ef" />
+                <rect x="74" y="56" width="38" height="40" fill="#d2ebd2" />
+                {/* roads (casing + fill) */}
+                <g strokeLinecap="round">
+                  <path d="M0 96 H120" stroke="#cdd6dd" strokeWidth="9" />
+                  <path d="M0 96 H120" stroke="#ffffff" strokeWidth="6" />
+                  <path d="M30 9 V235" stroke="#cdd6dd" strokeWidth="9" />
+                  <path d="M30 9 V235" stroke="#ffffff" strokeWidth="6" />
+                  <path d="M88 9 V235" stroke="#cdd6dd" strokeWidth="7" />
+                  <path d="M88 9 V235" stroke="#ffffff" strokeWidth="4.5" />
+                  <path d="M0 132 H120" stroke="#f3cd6a" strokeWidth="9" />
+                </g>
+                {/* route with casing */}
+                <path d="M40 178 V140 Q40 120 64 120 H86 Q100 120 100 90 V62" fill="none" stroke="#1a56c4" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M40 178 V140 Q40 120 64 120 H86 Q100 120 100 90 V62" fill="none" stroke="#2e7dff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                {/* destination pin */}
+                <path d="M100 48 c-6 0 -10.5 4.6 -10.5 10.5 c0 7.3 10.5 16.5 10.5 16.5 s10.5 -9.2 10.5 -16.5 c0 -5.9 -4.5 -10.5 -10.5 -10.5 z" fill="#ea4335" stroke="#fff" strokeWidth="1.5" />
+                <circle cx="100" cy="58.5" r="3.6" fill="#fff" />
+                {/* GPS location puck */}
+                <circle className="puck-pulse" cx="40" cy="178" r="15" fill="#2e7dff" opacity="0.18" />
+                <circle cx="40" cy="178" r="7" fill="#2e7dff" stroke="#fff" strokeWidth="2.5" />
+
+                {/* status bar */}
+                <text x="17" y="22" fontSize="8" fontWeight="700" fill="#1f2937" fontFamily="Inter">9:41</text>
+                <rect x="95" y="16" width="11" height="7" rx="1.6" fill="none" stroke="#1f2937" strokeWidth="1" />
+                <rect x="96.5" y="17.5" width="7.5" height="4" rx="0.6" fill="#1f2937" />
+
+                {/* nav banner */}
+                <rect x="14" y="28" width="92" height="22" rx="6" fill="#137a3a" />
+                <path d="M23 39 l6 -6 v4 h6 v4 h-6 v4 z" fill="#fff" />
+                <text x="40" y="38" fontSize="8.5" fontWeight="800" fill="#fff" fontFamily="Inter">I-10 E</text>
+                <text x="40" y="47" fontSize="6.5" fill="#cdeed8" fontFamily="Inter">2.3 mi</text>
+
+                {/* ETA card */}
+                <rect x="8" y="205" width="104" height="30" fill="#ffffff" />
+                <text x="16" y="220" fontSize="9.5" fontWeight="800" fill="#137333" fontFamily="Inter">14 min</text>
+                <text x="16" y="230" fontSize="6.5" fill="#5f6368" fontFamily="Inter">9.1 mi · 2:45 PM</text>
+                <circle cx="100" cy="220" r="9.5" fill="#1a73e8" />
+                <path d="M97 215.5 l6 4.5 l-6 4.5 z" fill="#fff" />
               </g>
-              <path className="route" d="M26 120 V92 Q26 78 44 78 H58 Q73 78 71 50 L67 34" />
-              <g className="dest">
-                <path d="M67 24 c-5 0 -9 4 -9 9 c0 6 9 15 9 15 s9 -9 9 -15 c0 -5 -4 -9 -9 -9 z" />
-                <circle cx="67" cy="33" r="3.2" />
-              </g>
-              <g className="gps">
-                <circle className="pulse p1" cx="26" cy="120" r="17" />
-                <circle className="pulse p2" cx="26" cy="120" r="11" />
-                <path className="nav-arrow" d="M26 110 l8 19 l-8 -6 l-8 6 z" />
-              </g>
-              <g className="gps-badge">
-                <rect x="15" y="19" width="34" height="13" rx="6.5" />
-                <text x="32" y="28.5" textAnchor="middle">GPS ON</text>
-              </g>
+
+              {/* dynamic island + screen gloss */}
+              <rect x="44" y="13" width="32" height="9" rx="4.5" fill="#0a0c10" />
+              <rect x="8" y="9" width="104" height="226" rx="19" fill="url(#pgloss)" />
             </svg>
           </div>
         </div>

@@ -799,15 +799,26 @@ body {
   padding: 22px;
 }
 
-/* short site intro above the map */
-.map-intro {
-  margin: 0;
-  padding: 14px 22px;
-  font-size: 0.86rem;
-  line-height: 1.55;
-  color: var(--slate-600);
-  background: #fff;
-  border-bottom: 1px solid var(--slate-100);
+/* brief site intro above the map card (sits on the dark page) */
+.site-intro {
+  text-align: center;
+  padding: 6px 16px 2px;
+}
+
+.site-intro h2 {
+  margin: 0 0 8px;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #fff;
+}
+
+.site-intro p {
+  margin: 0 auto;
+  max-width: 720px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--slate-300);
 }
 
 /* ---------- Form ---------- */
@@ -1865,72 +1876,17 @@ body {
   justify-content: flex-end;
 }
 
-.phone-gps {
-  width: 76px;
+/* realistic phone mockup with a navigation screen */
+.phone-mock {
+  width: 92px;
   height: auto;
-  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.6));
 }
 
-.phone-gps .phone-body {
-  fill: #0a1322;
-  stroke: #2c3c58;
-  stroke-width: 2;
-}
-.phone-gps .phone-screen {
-  fill: #0c1a2d;
-}
-.phone-gps .notch {
-  fill: #2c3c58;
-}
-.phone-gps .roads {
-  stroke: #1c3252;
-  stroke-width: 5;
-  stroke-linecap: round;
-  fill: none;
-}
-.phone-gps .route {
-  fill: none;
-  stroke: var(--amber);
-  stroke-width: 3.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.phone-gps .dest {
-  fill: var(--red);
-}
-.phone-gps .dest circle {
-  fill: #0c1a2d;
-}
-.phone-gps .nav-arrow {
-  fill: var(--blue);
-  stroke: #fff;
-  stroke-width: 1.6;
-  stroke-linejoin: round;
-}
-.phone-gps .pulse {
-  fill: var(--blue);
+.phone-mock .puck-pulse {
   transform-box: fill-box;
   transform-origin: center;
-}
-.phone-gps .p1 {
-  opacity: 0.14;
   animation: gpsPulse 2.2s ease-out infinite;
-}
-.phone-gps .p2 {
-  opacity: 0.22;
-  animation: gpsPulse 2.2s ease-out infinite 0.5s;
-}
-.phone-gps .gps-badge rect {
-  fill: rgba(16, 185, 129, 0.2);
-  stroke: var(--green);
-  stroke-width: 1;
-}
-.phone-gps .gps-badge text {
-  fill: #6ee7b7;
-  font-size: 6.5px;
-  font-weight: 700;
-  font-family: var(--font);
-  letter-spacing: 0.04em;
 }
 
 @keyframes gpsPulse {
@@ -1973,7 +1929,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .topbar::after,
   .footer::before,
-  .phone-gps .pulse {
+  .phone-mock .puck-pulse {
     animation: none;
   }
 }
