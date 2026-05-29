@@ -9,7 +9,7 @@ drop off, and how many cycle hours you've already used — and RouteRest returns
 
 | | |
 |---|---|
-| **Live app** | _add your hosted URL here_ |
+| **Live app** | https://route-rest.vercel.app/ |
 
 ---
 
