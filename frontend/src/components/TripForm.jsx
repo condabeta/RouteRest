@@ -83,13 +83,26 @@ export default function TripForm({ onSubmit, loading }) {
       </div>
 
       <div className="form-hero-content">
+        <div className="hero-intro">
+          <span className="hero-kicker">Drive safe · stay legal</span>
+          <h2 className="hero-title">
+            Every hour of rest brings you home safe.
+          </h2>
+          <p className="hero-message">
+            Hours-of-Service limits aren't red tape — they keep you, and
+            everyone sharing the road, safe. Take your breaks, log them
+            honestly, and never push past your hours. Plan the smart way, and
+            let RouteRest handle the rest.
+          </p>
+        </div>
+
         <div className="hero-left">
-        <div className="form-hero-head">
+        {/* <div className="form-hero-head">
           <h2>Plan a Trip</h2>
           <span className="hero-sub">
             Property carrier · 70hr / 8day · U.S. interstate
           </span>
-        </div>
+        </div> */}
 
         {error && <div className="error-box">{error}</div>}
 
@@ -164,13 +177,6 @@ export default function TripForm({ onSubmit, loading }) {
             </button>
           ))}
         </div>
-        </div>
-
-        <div className="hero-intro">
-          <span className="hero-kicker">For America's truck drivers</span>
-          <h2 className="hero-title">
-            Built for the drivers who keep America moving.
-          </h2>
         </div>
       </div>
     </form>

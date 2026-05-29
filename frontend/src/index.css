@@ -320,11 +320,11 @@ body {
      photos still show through */
   background: linear-gradient(
       90deg,
-      rgba(8, 15, 28, 0.88) 0%,
-      rgba(8, 15, 28, 0.6) 30%,
-      rgba(8, 15, 28, 0.32) 52%,
-      rgba(8, 15, 28, 0.5) 78%,
-      rgba(8, 15, 28, 0.68) 100%
+      rgba(8, 15, 28, 0.76) 0%,
+      rgba(8, 15, 28, 0.46) 26%,
+      rgba(8, 15, 28, 0.38) 48%,
+      rgba(8, 15, 28, 0.66) 72%,
+      rgba(8, 15, 28, 0.9) 100%
     ),
     linear-gradient(180deg, rgba(8, 15, 28, 0.12), rgba(8, 15, 28, 0.45));
   animation: none;
@@ -344,9 +344,9 @@ body {
 .form-hero-content {
   position: relative;
   z-index: 1;
-  padding: 80px 68px 80px;
+  padding: 100px 120px;
   display: grid;
-  grid-template-columns: minmax(340px, 440px) 1fr;
+  grid-template-columns: 1fr minmax(340px, 440px);
   gap: 30px;
   align-items: stretch;
 }
@@ -356,13 +356,22 @@ body {
   flex-direction: column;
 }
 
-/* ---------- Hero intro (title + text on the right) ---------- */
+/* ---------- Hero intro (message on the left) ---------- */
 .hero-intro {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 8px 12px 8px 26px;
+  padding: 8px 26px 8px 0;
   color: #fff;
+}
+
+.hero-message {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 560px;
+  margin: 0;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
 }
 
 .hero-kicker {
