@@ -71,14 +71,23 @@ def get_route(points: list) -> Route:
             },
             timeout=30,
         )
-        resp.raise_for_status()
         data = resp.json()
+    except ValueError:
+        raise RoutingError(
+            "The routing service returned an unexpected response. Please try again."
+        )
     except requests.RequestException as exc:
-        raise RoutingError(f"Routing service unavailable: {exc}") from exc
+        raise RoutingError(
+            "The routing service is temporarily unreachable. Please try again."
+        ) from exc
 
+    # OSRM replies with a JSON `code` even on 4xx (e.g. NoRoute / InvalidQuery).
     if data.get("code") != "Ok" or not data.get("routes"):
         raise RoutingError(
-            "Could not compute a driving route between the given locations."
+            "Couldn't find a drivable route between those locations. Make sure "
+            "each one is a U.S. city connected by road — pick from the "
+            "suggestions as you type (avoid overseas territories like Hawaii or "
+            "American Samoa, which aren't reachable by road)."
         )
 
     route = data["routes"][0]
