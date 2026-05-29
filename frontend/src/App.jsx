@@ -59,7 +59,7 @@ export default function App() {
         <span className="badge">FMCSA 49 CFR §395 · 70hr / 8day</span>
       </header>
 
-      <div className="container1">
+      <div className="container">
         <TripForm onSubmit={handleSubmit} loading={loading} />
 
         <div className="results" id="results-top">
