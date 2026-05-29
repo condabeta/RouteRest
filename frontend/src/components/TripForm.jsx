@@ -77,6 +77,8 @@ export default function TripForm({ onSubmit, loading }) {
         <div className="slide s3" />
         <div className="slide s4" />
         <div className="slide s5" />
+        <div className="slide s6" />
+        <div className="slide s7" />
         <div className="hero-scrim" />
       </div>
 
@@ -165,20 +167,10 @@ export default function TripForm({ onSubmit, loading }) {
         </div>
 
         <div className="hero-intro">
-          <span className="hero-kicker">Hours-of-Service Trip Planner</span>
+          <span className="hero-kicker">For America's truck drivers</span>
           <h2 className="hero-title">
-            Drive every mile<br />fully compliant.
+            Built for the drivers who keep America moving.
           </h2>
-          <p className="hero-copy">
-            RouteRest turns your route and current cycle hours into a complete
-            FMCSA-compliant plan — mapping every fuel stop, 30-minute break and
-            10-hour rest, then drawing your daily ELD log sheets automatically.
-          </p>
-          <ul className="hero-points">
-            <li>Live route &amp; map from free OpenStreetMap data</li>
-            <li>Automatic 11h / 14h / 70h-per-8-day rule enforcement</li>
-            <li>Ready-to-submit daily ELD log sheets, one per day</li>
-          </ul>
         </div>
       </div>
     </form>

@@ -258,7 +258,7 @@ body {
   background-repeat: no-repeat;
   opacity: 0;
   will-change: opacity, transform;
-  animation: slideFade 30s infinite;
+  animation: slideFade 42s infinite; /* 7 slides × 6s each */
 }
 
 /* Save your photos as frontend/public/hero1.jpg … hero5.jpg.
@@ -297,13 +297,13 @@ body {
     opacity: 0;
     transform: scale(1.06);
   }
-  4% {
+  3% {
     opacity: 1;
   }
-  20% {
+  14% {
     opacity: 1;
   }
-  24% {
+  17% {
     opacity: 0;
   }
   100% {
@@ -344,7 +344,7 @@ body {
 .form-hero-content {
   position: relative;
   z-index: 1;
-  padding: 56px 58px 56px;
+  padding: 80px 68px 80px;
   display: grid;
   grid-template-columns: minmax(340px, 440px) 1fr;
   gap: 30px;
