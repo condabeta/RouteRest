@@ -6,7 +6,9 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     DJANGO_DEBUG=False \
     DJANGO_ALLOWED_HOSTS=* \
-    CORS_ALLOW_ALL=True
+    CORS_ALLOW_ALL=True \
+    # SQLite in /tmp so it's writable at runtime (e.g. Hugging Face Spaces)
+    DATABASE_URL=sqlite:////tmp/db.sqlite3
 
 WORKDIR /app
 
