@@ -1153,15 +1153,15 @@ body {
 /* ---------- Alert toast (error notifications) ---------- */
 .alert-toast {
   position: fixed;
-  top: 86px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 80px;
+  right: 24px;
+  left: auto;
   z-index: 3000;
   display: flex;
   align-items: center;
   gap: 12px;
   min-width: 300px;
-  max-width: 92vw;
+  max-width: min(380px, 92vw);
   padding: 13px 14px 13px 16px;
   background: linear-gradient(135deg, #dc2626, #b91c1c);
   color: #fff;
@@ -1203,11 +1203,11 @@ body {
 @keyframes toastIn {
   from {
     opacity: 0;
-    transform: translate(-50%, -16px);
+    transform: translateX(24px);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translateX(0);
   }
 }
 
