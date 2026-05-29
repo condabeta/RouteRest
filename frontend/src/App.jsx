@@ -60,47 +60,45 @@ export default function App() {
       </header>
 
       <div className="container">
-        <div className="layout">
-          <TripForm onSubmit={handleSubmit} loading={loading} />
+        <TripForm onSubmit={handleSubmit} loading={loading} />
 
-          <div className="results" id="results-top">
-            {error && <div className="error-box">{error}</div>}
+        <div className="results" id="results-top">
+          {error && <div className="error-box top-error">{error}</div>}
 
-            {!plan && !error && (
-              <div className="card">
-                <div className="placeholder">
-                  <div className="big-icon">
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0 0 21 18.382V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7" />
-                    </svg>
-                  </div>
-                  <h3>Plan your first trip</h3>
-                  <p>
-                    Enter your locations and current cycle hours, and we'll map
-                    the route with required rest stops and draw your daily ELD
-                    log sheets.
-                  </p>
+          {!plan && !error && (
+            <div className="card">
+              <div className="placeholder">
+                <div className="big-icon">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0 0 21 18.382V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
                 </div>
+                <h3>Plan your first trip</h3>
+                <p>
+                  Enter your locations and current cycle hours above, and we'll
+                  map the route with required rest stops and draw your daily ELD
+                  log sheets.
+                </p>
               </div>
-            )}
+            </div>
+          )}
 
-            {plan && (
-              <>
-                <TripSummary summary={plan.summary} />
-                <div className="card">
-                  <div className="card-header">
-                    <h2>Route Map</h2>
-                    <span className="sub">
-                      OpenStreetMap · {Math.round(plan.summary.total_distance_miles)} mi
-                    </span>
-                  </div>
-                  <RouteMap plan={plan} />
+          {plan && (
+            <>
+              <TripSummary summary={plan.summary} />
+              <div className="card">
+                <div className="card-header">
+                  <h2>Route Map</h2>
+                  <span className="sub">
+                    OpenStreetMap · {Math.round(plan.summary.total_distance_miles)} mi
+                  </span>
                 </div>
-                <StopsTimeline stops={plan.stops} />
-                <LogSheets dailyLogs={plan.daily_logs} />
-              </>
-            )}
-          </div>
+                <RouteMap plan={plan} />
+              </div>
+              <StopsTimeline stops={plan.stops} />
+              <LogSheets dailyLogs={plan.daily_logs} />
+            </>
+          )}
         </div>
       </div>
 

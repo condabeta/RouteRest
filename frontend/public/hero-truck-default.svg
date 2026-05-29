@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fb8b2e"/>
+      <stop offset="0.6" stop-color="#f3781a"/>
+      <stop offset="1" stop-color="#e96b10"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9aa3b0"/>
+      <stop offset="1" stop-color="#737b88"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="420" fill="url(#sky)"/>
+
+  <!-- barrier wall -->
+  <path d="M0 320 L1600 250 L1600 286 L0 356 Z" fill="#d9dfe7"/>
+  <path d="M0 356 L1600 286 L1600 296 L0 366 Z" fill="#b7bfca"/>
+
+  <!-- road -->
+  <path d="M0 356 L1600 296 L1600 420 L0 420 Z" fill="url(#road)"/>
+  <g stroke="#f4f6f9" stroke-width="5" stroke-linecap="round" opacity="0.9">
+    <line x1="140" y1="416" x2="380" y2="372"/>
+    <line x1="600" y1="416" x2="760" y2="372"/>
+    <line x1="1060" y1="416" x2="1140" y2="372"/>
+  </g>
+
+  <!-- truck -->
+  <g transform="translate(600 168)">
+    <!-- trailer -->
+    <rect x="120" y="0" width="300" height="150" rx="6" fill="#f3781a" stroke="#0b1729" stroke-width="5"/>
+    <rect x="150" y="26" width="240" height="34" rx="3" fill="#d65f0c"/>
+    <text x="158" y="122" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff" opacity="0.92">ROUTEREST</text>
+    <!-- cab -->
+    <path d="M120 40 H40 C18 40 6 58 6 80 V150 H120 Z" fill="#f8fafc" stroke="#0b1729" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M40 52 H96 V92 H18 C18 70 26 56 40 52 Z" fill="#bae6fd" stroke="#0b1729" stroke-width="3"/>
+    <rect x="10" y="104" width="22" height="14" rx="3" fill="#f59e0b"/>
+    <!-- wheels -->
+    <circle cx="70" cy="158" r="26" fill="#1e293b" stroke="#0b1729" stroke-width="5"/>
+    <circle cx="70" cy="158" r="9" fill="#94a3b8"/>
+    <circle cx="250" cy="158" r="26" fill="#1e293b" stroke="#0b1729" stroke-width="5"/>
+    <circle cx="250" cy="158" r="9" fill="#94a3b8"/>
+    <circle cx="330" cy="158" r="26" fill="#1e293b" stroke="#0b1729" stroke-width="5"/>
+    <circle cx="330" cy="158" r="9" fill="#94a3b8"/>
+  </g>
+</svg>

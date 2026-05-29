@@ -206,6 +206,143 @@ body {
   }
 }
 
+/* ---------- Plan a Trip hero (truck image background) ---------- */
+/* .card.form-hero so these win over the base .card rule regardless of order */
+.card.form-hero {
+  position: relative;
+  overflow: visible; /* let the autocomplete dropdown escape */
+  border: none;
+  color: #fff;
+  margin-bottom: 26px;
+  min-height: 300px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  /* hero-truck.jpg (your photo) draws on top; the bundled SVG is the default;
+     the orange color is the final fallback. Save your image to
+     frontend/public/hero-truck.jpg to use it. */
+  background-color: #e8741a;
+  background-image: url("/hero-truck.jpg"), url("/hero-truck-default.svg");
+  background-size: cover, cover;
+  background-position: center 35%, center bottom;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.form-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 20, 36, 0.05) 0%,
+    rgba(10, 20, 36, 0.2) 45%,
+    rgba(10, 20, 36, 0.62) 100%
+  );
+  pointer-events: none;
+}
+
+.form-hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 26px 28px 26px;
+}
+
+.form-hero-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.form-hero-head h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+.form-hero .hero-sub {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 5px 12px;
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 120px 188px;
+  gap: 14px;
+  align-items: end;
+}
+
+.hero-grid .field {
+  margin-bottom: 0;
+}
+
+.hero-grid .field label {
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+.hero-grid .field .hint {
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: none;
+}
+
+.hero-grid .field input {
+  background: rgba(255, 255, 255, 0.97);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.hero-grid .field input:focus {
+  background: #fff;
+  border-color: var(--blue);
+}
+
+.hero-grid .btn {
+  margin-top: 0;
+  height: 46px;
+  padding: 0 14px;
+}
+
+.form-hero .field-help {
+  margin: 16px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.form-hero .field-help strong {
+  color: #fff;
+}
+
+@media (max-width: 1100px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero-grid .btn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.top-error {
+  margin-bottom: 0;
+}
+
 /* ---------- Cards ---------- */
 .card {
   background: var(--card);
