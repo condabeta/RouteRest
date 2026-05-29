@@ -192,7 +192,7 @@ export default function TripForm({ onSubmit, loading }) {
             </span>
           </button>
 
-          {/* <div className="hero-examples">
+          <div className="hero-examples">
             <span className="ex-label">Try an example:</span>
             {EXAMPLES.map((ex) => (
               <button
@@ -205,7 +205,7 @@ export default function TripForm({ onSubmit, loading }) {
                 {ex.label}
               </button>
             ))}
-          </div> */}
+          </div>
         </div>
       </div>
     </form>

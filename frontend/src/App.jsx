@@ -85,7 +85,7 @@ export default function App() {
 
           {plan && (
             <>
-              <TripSummary summary={plan.summary} />
+              {/* Route Map on top, full width */}
               <div className="card">
                 <div className="card-header">
                   <h2>Route Map</h2>
@@ -95,7 +95,14 @@ export default function App() {
                 </div>
                 <RouteMap plan={plan} />
               </div>
-              <StopsTimeline stops={plan.stops} />
+
+              {/* Trip Summary (left) + Itinerary & Stops (right) */}
+              <div className="results-split">
+                <TripSummary summary={plan.summary} />
+                <StopsTimeline stops={plan.stops} />
+              </div>
+
+              {/* Daily Log Sheets full width */}
               <LogSheets dailyLogs={plan.daily_logs} />
             </>
           )}

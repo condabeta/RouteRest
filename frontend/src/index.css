@@ -234,9 +234,7 @@ body {
 
 .container {
   width: 100%;
-  /* max-width: 1280px;
-  margin: 0 auto;
-  padding: 30px; */
+  background-color: white;
   flex: 1;
 }
 
@@ -1249,6 +1247,26 @@ body {
   display: flex;
   flex-direction: column;
   gap: 26px;
+  margin: 0 250px
+}
+
+/* Trip Summary (left) + Itinerary & Stops (right), below the map */
+.results-split {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 26px;
+  align-items: start;
+}
+
+/* Trip Summary stats as a single column (one per line) */
+.results-split .stats {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 1000px) {
+  .results-split {
+    grid-template-columns: 1fr;
+  }
 }
 
 .placeholder {
