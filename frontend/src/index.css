@@ -22,7 +22,7 @@
   --red: #ef4444;
   --purple: #8b5cf6;
 
-  --bg: #eef2f9;
+  --bg: #0b1626;
   --card: #ffffff;
   --shadow-sm: 0 1px 2px rgba(15, 33, 56, 0.06);
   --shadow: 0 4px 6px -1px rgba(15, 33, 56, 0.07),
@@ -53,20 +53,21 @@ body {
   line-height: 1.5;
   background-color: var(--bg);
   background-image: radial-gradient(
-      900px 500px at 12% -5%,
-      rgba(99, 102, 241, 0.12),
+      1000px 560px at 8% -8%,
+      rgba(99, 102, 241, 0.22),
       transparent 60%
     ),
     radial-gradient(
-      800px 480px at 95% 0%,
-      rgba(245, 158, 11, 0.12),
+      900px 520px at 98% -2%,
+      rgba(245, 158, 11, 0.16),
       transparent 55%
     ),
     radial-gradient(
-      700px 600px at 60% 110%,
-      rgba(14, 165, 233, 0.1),
+      820px 660px at 55% 118%,
+      rgba(14, 165, 233, 0.2),
       transparent 60%
-    );
+    ),
+    linear-gradient(180deg, #0c1a30 0%, #0a1322 100%);
   background-attachment: fixed;
 }
 
@@ -91,7 +92,7 @@ body {
   backdrop-filter: blur(14px) saturate(150%);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
   color: white;
-  padding: 25px 50px;
+  padding: 15px 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -99,7 +100,7 @@ body {
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 10px 34px rgba(6, 13, 26, 0.45);
+  box-shadow: 0 5px 10px rgba(6, 13, 26, 0.45)
 }
 
 /* faint dot texture, faded at the edges */
@@ -234,7 +235,7 @@ body {
 
 .container {
   width: 100%;
-  background-color: white;
+  background-color: transparent;
   flex: 1;
 }
 
@@ -728,8 +729,9 @@ body {
 .card {
   background: var(--card);
   /* border-radius: var(--radius); */
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5),
+    0 2px 8px -2px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   overflow: hidden;
   position: relative;
   animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -760,12 +762,13 @@ body {
 }
 
 .card-header {
-  padding: 17px 22px;
-  border-bottom: 1px solid var(--slate-100);
+  padding: 15px 22px;
+  border-bottom: 2px solid var(--amber);
   display: flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(180deg, #fff, var(--slate-50));
+  background: linear-gradient(120deg, var(--navy-900) 0%, var(--navy-700) 100%);
+  color: #fff;
 }
 
 .card-header h2 {
@@ -773,6 +776,7 @@ body {
   font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: -0.015em;
+  color: #fff;
   display: flex;
   align-items: center;
   gap: 9px;
@@ -788,7 +792,7 @@ body {
 
 .card-header .sub {
   font-size: 0.78rem;
-  color: var(--slate-500);
+  color: var(--slate-300);
   margin-left: auto;
   font-weight: 500;
 }
@@ -1323,7 +1327,7 @@ body {
 .stat {
   background: linear-gradient(160deg, #fff, var(--slate-50));
   border-radius: var(--radius-sm);
-  padding: 16px;
+  padding: 12px;
   border: 1px solid var(--slate-200);
   transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
   display: flex;
