@@ -33,7 +33,9 @@
   --radius-sm: 0;
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* unified: everything uses the same family */
+  --mono: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -85,9 +87,9 @@ body {
 .topbar {
   background: linear-gradient(
     115deg,
-    rgba(2, 4, 9, 0.96) 0%,
-    rgba(5, 11, 22, 0.94) 55%,
-    rgba(8, 18, 33, 0.92) 100%
+    rgba(13, 27, 49, 0.82) 0%,
+    rgba(16, 33, 58, 0.8) 55%,
+    rgba(20, 41, 70, 0.78) 100%
   );
   backdrop-filter: blur(14px) saturate(150%);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
@@ -416,7 +418,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: "Barlow Condensed", var(--font);
+  font-family: var(--font);
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.24em;
@@ -434,13 +436,13 @@ body {
 }
 
 .hero-title {
-  font-family: "Barlow Condensed", var(--font);
-  font-size: clamp(2.8rem, 5vw, 4.6rem);
-  line-height: 0.95;
+  font-family: var(--font);
+  font-size: clamp(2.1rem, 3.6vw, 3.3rem);
+  line-height: 1.08;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.01em;
-  margin: 0 0 40px;
+  letter-spacing: -0.02em;
+  margin: 0 0 28px;
   color: #fff;
   text-shadow: 0 4px 30px rgba(0, 0, 0, 0.55);
 }
@@ -760,36 +762,34 @@ body {
   animation-delay: 0.2s;
 }
 
-/* section title as a clean uppercase label with an amber underline */
+/* distinct header strip: light tinted bar separated from the body */
 .card-header {
-  padding: 18px 22px 0;
-  background: transparent;
-  border: none;
+  padding: 13px 20px;
+  background: var(--slate-50);
+  border-bottom: 1.5px solid var(--slate-200);
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
 }
 
 .card-header h2 {
-  position: relative;
   margin: 0;
-  padding-bottom: 9px;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--navy-800);
+  display: flex;
+  align-items: center;
+  gap: 9px;
 }
 
-.card-header h2::after {
+.card-header h2::before {
   content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 30px;
-  height: 3px;
+  width: 4px;
+  height: 16px;
   border-radius: 2px;
-  background: linear-gradient(90deg, var(--amber), var(--amber-dark));
+  background: linear-gradient(180deg, var(--amber), var(--amber-dark));
 }
 
 .card-header .sub {
@@ -1691,9 +1691,9 @@ body {
   color: var(--slate-300);
   background: linear-gradient(
     115deg,
-    #02040a 0%,
-    #05101f 60%,
-    #07182e 100%
+    #0c1a30 0%,
+    #102541 60%,
+    #16304f 100%
   );
 }
 
