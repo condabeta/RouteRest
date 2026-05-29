@@ -29,8 +29,8 @@
     0 12px 28px -8px rgba(15, 33, 56, 0.12);
   --shadow-lg: 0 20px 50px -12px rgba(15, 33, 56, 0.22);
   --shadow-amber: 0 8px 24px -4px rgba(245, 158, 11, 0.45);
-  --radius: 18px;
-  --radius-sm: 12px;
+  --radius: 0;
+  --radius-sm: 0;
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -264,24 +264,32 @@ body {
 /* Save your photos as frontend/public/hero1.jpg … hero5.jpg.
    The bundled SVG shows as a fallback until then. */
 .hero-slideshow .s1 {
-  background-image: url("/hero1.jpg"), url("/hero-truck-default.svg");
+  background-image: url("/1.jpg"), url("/hero-truck-default.svg");
   animation-delay: 0s;
 }
 .hero-slideshow .s2 {
-  background-image: url("/hero2.jpg"), url("/hero-truck-default.svg");
+  background-image: url("/2.jpg"), url("/hero-truck-default.svg");
   animation-delay: 6s;
 }
 .hero-slideshow .s3 {
-  background-image: url("/hero3.jpg"), url("/hero-truck-default.svg");
+  background-image: url("/3.jpg"), url("/hero-truck-default.svg");
   animation-delay: 12s;
 }
 .hero-slideshow .s4 {
-  background-image: url("/hero4.jpg"), url("/hero-truck-default.svg");
+  background-image: url("/4.jpg"), url("/hero-truck-default.svg");
   animation-delay: 18s;
 }
 .hero-slideshow .s5 {
-  background-image: url("/hero5.jpg"), url("/hero-truck-default.svg");
+  background-image: url("/5.jpg"), url("/hero-truck-default.svg");
   animation-delay: 24s;
+}
+.hero-slideshow .s6 {
+  background-image: url("/6.jpg"), url("/hero-truck-default.svg");
+  animation-delay: 30s;
+}
+.hero-slideshow .s7 {
+  background-image: url("/7.jpg"), url("/hero-truck-default.svg");
+  animation-delay: 36s;
 }
 
 @keyframes slideFade {
@@ -308,14 +316,17 @@ body {
 .hero-slideshow .hero-scrim {
   position: absolute;
   inset: 0;
+  /* dark on both ends (form + intro text), lighter in the middle so the
+     photos still show through */
   background: linear-gradient(
       90deg,
-      rgba(8, 15, 28, 0.82) 0%,
-      rgba(8, 15, 28, 0.6) 32%,
-      rgba(8, 15, 28, 0.2) 60%,
-      rgba(8, 15, 28, 0.05) 100%
+      rgba(8, 15, 28, 0.88) 0%,
+      rgba(8, 15, 28, 0.6) 30%,
+      rgba(8, 15, 28, 0.32) 52%,
+      rgba(8, 15, 28, 0.5) 78%,
+      rgba(8, 15, 28, 0.68) 100%
     ),
-    linear-gradient(180deg, rgba(8, 15, 28, 0.1), rgba(8, 15, 28, 0.4));
+    linear-gradient(180deg, rgba(8, 15, 28, 0.12), rgba(8, 15, 28, 0.45));
   animation: none;
   opacity: 1;
 }
@@ -343,6 +354,84 @@ body {
 .hero-left {
   display: flex;
   flex-direction: column;
+}
+
+/* ---------- Hero intro (title + text on the right) ---------- */
+.hero-intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 12px 8px 26px;
+  color: #fff;
+}
+
+.hero-kicker {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber-light);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 1.06;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  margin: 0 0 18px;
+  color: #fff;
+  text-shadow: 0 3px 24px rgba(0, 0, 0, 0.6);
+}
+
+.hero-copy {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.94);
+  max-width: 540px;
+  margin: 0 0 24px;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.65);
+}
+
+.hero-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.hero-points li {
+  position: relative;
+  padding-left: 30px;
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
+}
+
+.hero-points li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  background: var(--amber);
+  color: #2a1c05;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+@media (max-width: 900px) {
+  .hero-intro {
+    padding: 4px 0 0;
+  }
 }
 
 .form-hero-head {

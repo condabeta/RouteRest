@@ -163,6 +163,23 @@ export default function TripForm({ onSubmit, loading }) {
           ))}
         </div>
         </div>
+
+        <div className="hero-intro">
+          <span className="hero-kicker">Hours-of-Service Trip Planner</span>
+          <h2 className="hero-title">
+            Drive every mile<br />fully compliant.
+          </h2>
+          <p className="hero-copy">
+            RouteRest turns your route and current cycle hours into a complete
+            FMCSA-compliant plan — mapping every fuel stop, 30-minute break and
+            10-hour rest, then drawing your daily ELD log sheets automatically.
+          </p>
+          <ul className="hero-points">
+            <li>Live route &amp; map from free OpenStreetMap data</li>
+            <li>Automatic 11h / 14h / 70h-per-8-day rule enforcement</li>
+            <li>Ready-to-submit daily ELD log sheets, one per day</li>
+          </ul>
+        </div>
       </div>
     </form>
   );
