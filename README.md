@@ -1,180 +1,104 @@
 # 🚛 RouteRest — HOS-Compliant Trip Planner & ELD Log Generator
 
-A full-stack application that takes trip details as input and produces:
+RouteRest helps U.S. truck drivers plan a trip that stays within the federal
+**Hours-of-Service (HOS)** rules. You enter where you are, where to pick up and
+drop off, and how many cycle hours you've already used — and RouteRest returns:
 
-1. **A route map** with all required stops (pickup, drop-off, fueling, 30-minute
-   breaks, and 10-hour rest periods) using free map APIs.
-2. **Filled-out daily ELD log sheets** drawn to the FMCSA *Driver's Daily Log*
-   format — one sheet per calendar day, automatically generating multiple sheets
-   for longer trips.
-
-Built with **Django REST Framework** (backend) and **React + Vite + Leaflet**
-(frontend).
+- an **interactive route map** with every required stop (fuel, breaks, rests), and
+- **filled-out daily ELD log sheets**, one per day, in the official FMCSA format.
 
 | | |
 |---|---|
-| **Live app** | _add your Vercel URL here_ |
-| **Backend API** | _add your Render URL here_ |
-| **Loom walkthrough** | _add your Loom URL here_ |
+| **Live app** | _add your hosted URL here_ |
 
 ---
 
-## ✨ Features
+## 📸 Screenshots
 
-- **Four inputs**: current location, pickup, drop-off, current cycle hours used.
-- **Interactive route map** (Leaflet + OpenStreetMap) with colored markers for
-  origin/pickup/drop-off and intermediate fuel/rest/break stops, plus the full
-  driving polyline.
-- **Hours-of-Service simulation engine** implementing the federal
-  property-carrying rules (49 CFR Part 395) for a 70hr/8day driver.
-- **Auto-drawn ELD log sheets** — an SVG re-creation of the official grid with
-  the four duty rows, the duty-status step line, per-row totals, and rotated
-  city remarks at each duty change. Each sheet totals exactly 24 hours.
-- **Itinerary timeline** listing every stop with arrival times and distances.
-- **Print-ready** logs (`Print logs` button hides the UI chrome).
-- Clean, responsive, professional UI.
+**Plan a trip**
 
----
+![RouteRest home](docs/hero.png)
 
-## 🧠 Hours-of-Service rules implemented
+**Route map, trip summary & itinerary**
 
-Assumptions per the brief: property-carrying driver, **70 hrs / 8 days**, no
-adverse driving conditions, fueling at least every **1,000 miles**, and **1 hour**
-each for pickup and drop-off.
+![Route and summary](docs/results.png)
 
-| Rule | Implementation |
-|------|----------------|
-| **11-hour driving limit** | Max 11 hrs driving per shift before a 10-hr reset. |
-| **14-hour driving window** | No driving after 14 hrs from shift start. |
-| **30-minute break** | Required after 8 cumulative hours of driving. |
-| **70hr / 8-day limit** | Tracks the running cycle; starting hours are an input. |
-| **34-hour restart** | Automatically inserted when the 70-hr cycle is exhausted. |
-| **10-hour reset** | Inserted when the 11-hr or 14-hr limit is hit. |
-| **Fuel stops** | ~30 min on-duty stop at least every 1,000 miles. |
-| **Pickup / Drop-off** | 1 hour on-duty (not driving) each. |
+**Auto-generated daily ELD log sheet**
 
-Average driving speed is assumed to be **55 mph**. The engine walks a virtual
-clock forward, emitting duty segments that are then sliced into 24-hour calendar
-days for the log sheets.
-
-The engine is covered by unit tests (`backend/trips/tests.py`) that assert no
-shift exceeds 11 driving / 14 window hours, breaks and fuel stops appear when
-required, the cycle limit triggers a restart, and every log day totals 24 hours.
+![ELD log sheet](docs/logsheet.png)
 
 ---
 
-## 🏗 Architecture
+## ✨ What it does
 
-```
-RouteRest/
-├── backend/                 # Django + DRF API
-│   ├── eld_backend/         # project settings / urls / wsgi
-│   └── trips/
-│       ├── models.py        # Trip model (inputs + cached plan JSON)
-│       ├── serializers.py   # input validation
-│       ├── views.py         # POST /api/plan/  ·  GET /api/trips/<id>/
-│       ├── tests.py         # HOS engine unit tests (offline)
-│       └── services/
-│           ├── geocoding.py # Nominatim (free, keyless)
-│           ├── routing.py   # OSRM (free, keyless)
-│           └── hos_planner.py  # the HOS simulation engine
-└── frontend/                # React + Vite
-    └── src/
-        ├── api.js
-        ├── components/
-        │   ├── TripForm.jsx
-        │   ├── RouteMap.jsx       # Leaflet map
-        │   ├── TripSummary.jsx
-        │   ├── StopsTimeline.jsx
-        │   ├── LogSheet.jsx       # SVG ELD grid
-        │   └── LogSheets.jsx
-        └── App.jsx
-```
-
-### Free APIs used (no keys required)
-- **Geocoding**: [Nominatim](https://nominatim.openstreetmap.org/) (OpenStreetMap)
-- **Routing**: [OSRM](http://project-osrm.org/) public demo server
-- **Map tiles**: OpenStreetMap / CARTO
+- **Four simple inputs** — current location, pickup, drop-off, and current cycle
+  hours used.
+- **U.S. city autocomplete** — start typing and pick a location; no need to type
+  full addresses.
+- **Route map** — the full driving route with colored markers for the start,
+  pickup, and drop-off, plus smaller markers for fuel stops, breaks, and rests.
+- **Trip summary** — total distance, driving time, on-duty time, number of log
+  days, fuel stops, rests, and the cycle hours used at the end of the trip.
+- **Itinerary** — every stop with arrival time and trip mileage.
+- **Daily ELD log sheets** — drawn in the official *Driver's Daily Log* grid
+  format, one per calendar day, with the duty-status line, per-row totals, and
+  remarks. Longer trips automatically produce multiple sheets, and the logs are
+  **print-ready**.
 
 ---
 
-## 🔌 API
+## 🧭 How the plan stays compliant
 
-### `POST /api/plan/`
-```jsonc
-// request
-{
-  "current_location": "Los Angeles, CA",
-  "pickup_location": "Phoenix, AZ",
-  "dropoff_location": "Dallas, TX",
-  "current_cycle_used": 10
-}
-```
-```jsonc
-// response (truncated)
-{
-  "id": 1,
-  "plan": {
-    "summary": { "total_distance_miles": 1438.1, "total_driving_hours": 26.15,
-                 "number_of_days": 3, "fuel_stops": 1, "rest_stops": 2, ... },
-    "route":   { "total_distance_miles": 1438.1, "geometry": [[lat,lon], ...] },
-    "locations": { "current": {...}, "pickup": {...}, "dropoff": {...} },
-    "stops":   [ { "kind": "fuel", "label": "...", "distance_miles": 1000, ... } ],
-    "segments":[ { "status": "driving", "start": "...", "end": "...", ... } ],
-    "daily_logs": [ { "date": "2026-05-28", "totals": {...}, "segments": [...] } ]
-  }
-}
-```
+RouteRest assumes a **property-carrying driver on the 70-hour / 8-day cycle** (no
+adverse driving conditions) and automatically schedules the trip around these
+federal limits:
 
-### `GET /api/trips/<id>/`
-Returns a previously-planned trip (the plan is cached on the row).
+| Rule | What RouteRest does |
+|------|---------------------|
+| **11-hour driving limit** | Caps driving at 11 hours per shift, then schedules a 10-hour rest. |
+| **14-hour on-duty window** | Stops driving once 14 hours have passed since the shift began. |
+| **30-minute break** | Inserts a break after 8 cumulative hours of driving. |
+| **70-hour / 8-day cycle** | Tracks the running cycle starting from the hours you enter. |
+| **34-hour restart** | Adds a 34-hour restart automatically when the cycle is exhausted. |
+| **Fueling** | Schedules a fuel stop at least every 1,000 miles. |
+| **Pickup & drop-off** | Allows 1 hour of on-duty time for each. |
+
+Driving time is based on an average speed of **55 mph**, and each daily log
+sheet always totals a full 24 hours.
 
 ---
 
-## 🚀 Local development
+## 🗺️ Built with
 
-### Backend
+- **Backend** — Django + Django REST Framework (the Hours-of-Service planning
+  engine)
+- **Frontend** — React
+- **Maps & data** — OpenStreetMap, with routing by OSRM and geocoding by
+  Nominatim (all free, no API keys)
+
+---
+
+## ▶️ Running it locally (optional)
+
+Two terminals:
+
 ```bash
+# 1) Backend  (http://127.0.0.1:8000)
 cd backend
 python -m venv venv
-# Windows:  venv\Scripts\activate     macOS/Linux:  source venv/bin/activate
+venv\Scripts\activate        # Windows  ·  source venv/bin/activate on macOS/Linux
 pip install -r requirements.txt
 python manage.py migrate
-python manage.py test          # runs the HOS engine unit tests
-python manage.py runserver     # http://127.0.0.1:8000
-```
+python manage.py runserver
 
-### Frontend
-```bash
+# 2) Frontend  (http://127.0.0.1:5173)
 cd frontend
 npm install
-npm run dev                    # http://127.0.0.1:5173
+npm run dev
 ```
-The frontend talks to `http://127.0.0.1:8000` by default. To point it at a
-deployed backend, set `VITE_API_URL` (see `frontend/.env.example`).
+
+Then open **http://127.0.0.1:5173** and plan a trip.
 
 ---
 
-## ☁️ Deployment
-
-### Frontend → Vercel
-1. Import the repo in Vercel, set **Root Directory** to `frontend`.
-2. Framework preset: **Vite** (build `npm run build`, output `dist`).
-3. Add env var `VITE_API_URL` = your backend URL.
-
-### Backend → Render (free tier)
-1. New **Web Service** from the repo, **Root Directory** `backend`.
-2. Build command `./build.sh`, start command
-   `gunicorn eld_backend.wsgi:application`.
-3. Set env vars `DJANGO_DEBUG=False`, `DJANGO_ALLOWED_HOSTS=*`,
-   `CORS_ALLOW_ALL=True` (or `CORS_ALLOWED_ORIGINS=https://your-frontend.vercel.app`).
-
-A `render.yaml` blueprint is included for one-click setup.
-
----
-
-## 📝 Notes & assumptions
-- Trips start the duty day at **08:00** home-terminal time on the current date.
-- The 70hr/8day cycle is assumed; the "current cycle used" input seeds it.
-- Distances/durations come from OSRM; HOS driving time uses a 55 mph average.
-- This is a planning aid and a demonstration — not legal HOS advice.
+_RouteRest is a planning aid and demonstration, not legal HOS advice._
