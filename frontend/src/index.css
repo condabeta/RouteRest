@@ -546,6 +546,18 @@ body {
   font-weight: 500;
 }
 
+.field-help {
+  font-size: 0.74rem;
+  color: var(--slate-500);
+  margin: 8px 0 0;
+  line-height: 1.45;
+}
+
+.field-help strong {
+  color: var(--navy-700);
+  font-weight: 700;
+}
+
 .example-chips {
   display: flex;
   flex-wrap: wrap;
@@ -904,6 +916,30 @@ body {
   width: 16px;
   height: 4px;
   border-radius: 2px;
+}
+
+.projected-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: linear-gradient(135deg, #eff6ff, #f0f9ff);
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+.projected-note svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--blue);
+}
+
+.projected-note strong {
+  font-weight: 700;
 }
 
 .day-tabs {

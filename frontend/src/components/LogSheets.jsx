@@ -16,6 +16,19 @@ export default function LogSheets({ dailyLogs }) {
         </span>
       </div>
       <div className="card-body">
+        <div className="projected-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 8h.01M11 12h1v4h1" />
+          </svg>
+          <span>
+            These sheets are a <strong>projected plan</strong> for the trip
+            ahead, starting today at 8:00 AM. Future days are simulated assuming
+            the driver follows the recommended schedule — they fill in as the
+            trip is actually driven.
+          </span>
+        </div>
+
         <div className="print-btn-row" style={{ gap: 8 }}>
           <button
             className="btn secondary"

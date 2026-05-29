@@ -1,30 +1,6 @@
 import { useState } from "react";
 import LocationInput from "./LocationInput";
 
-const EXAMPLES = [
-  {
-    label: "LA → Phoenix → Dallas",
-    current: "Los Angeles, CA",
-    pickup: "Phoenix, AZ",
-    dropoff: "Dallas, TX",
-    cycle: 8,
-  },
-  {
-    label: "Chicago → Indy → Atlanta",
-    current: "Chicago, IL",
-    pickup: "Indianapolis, IN",
-    dropoff: "Atlanta, GA",
-    cycle: 20,
-  },
-  {
-    label: "Seattle → Portland → Denver",
-    current: "Seattle, WA",
-    pickup: "Portland, OR",
-    dropoff: "Denver, CO",
-    cycle: 45,
-  },
-];
-
 export default function TripForm({ onSubmit, loading }) {
   const [form, setForm] = useState({
     current_location: "",
@@ -39,16 +15,6 @@ export default function TripForm({ onSubmit, loading }) {
 
   const setLoc = (key) => (val) =>
     setForm((f) => ({ ...f, [key]: val }));
-
-  const applyExample = (ex) => {
-    setForm({
-      current_location: ex.current,
-      pickup_location: ex.pickup,
-      dropoff_location: ex.dropoff,
-      current_cycle_used: String(ex.cycle),
-    });
-    setError("");
-  };
 
   const submit = (e) => {
     e.preventDefault();
@@ -122,6 +88,11 @@ export default function TripForm({ onSubmit, loading }) {
               onChange={update("current_cycle_used")}
               placeholder="e.g. 12"
             />
+            <p className="field-help">
+              On-duty hours you've already logged over the past 8 days. The
+              70-hour cycle starts here — enter <strong>0</strong> if you're
+              fresh off a 34-hour restart.
+            </p>
           </div>
 
           <button className="btn" type="submit" disabled={loading}>
@@ -134,24 +105,6 @@ export default function TripForm({ onSubmit, loading }) {
               "Generate route & logs"
             )}
           </button>
-
-          <div style={{ marginTop: 16 }}>
-            <div className="field" style={{ marginBottom: 6 }}>
-              <label style={{ marginBottom: 4 }}>Try an example</label>
-            </div>
-            <div className="example-chips">
-              {EXAMPLES.map((ex) => (
-                <button
-                  type="button"
-                  key={ex.label}
-                  className="chip"
-                  onClick={() => applyExample(ex)}
-                >
-                  {ex.label}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </form>
