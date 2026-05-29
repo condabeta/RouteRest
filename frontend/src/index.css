@@ -536,7 +536,7 @@ body {
 }
 
 .hero-left .btn {
-  margin-top: 70px;
+  margin-top: 50px;
 }
 
 .form-hero .field-help {
@@ -1013,8 +1013,8 @@ body {
   min-width: 210px;
   padding: 13px 34px;
   margin-top: 26px;
-  overflow: hidden; /* clip the gloss + shine to the pill */
-  border-radius: 999px; /* sleek pill */
+  overflow: hidden; /* clip the gloss + shine */
+  border-radius: 0; /* square */
   font-size: 0.98rem;
   background: linear-gradient(135deg, #fcc63f, #f59e0b 52%, #d97706);
   box-shadow: 0 12px 30px -8px rgba(245, 158, 11, 0.75),
@@ -1028,7 +1028,7 @@ body {
   content: "";
   position: absolute;
   inset: 1px 1px 46% 1px;
-  border-radius: 999px;
+  border-radius: 0;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent);
   pointer-events: none;
 }
