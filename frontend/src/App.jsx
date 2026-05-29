@@ -93,6 +93,11 @@ export default function App() {
                     OpenStreetMap · {Math.round(plan.summary.total_distance_miles)} mi
                   </span>
                 </div>
+                <p className="map-intro">
+                  RouteRest plots your full route and marks every required stop —
+                  fueling, 30-minute breaks, and 10-hour rests — so the drive stays
+                  within federal Hours-of-Service limits.
+                </p>
                 <RouteMap plan={plan} />
               </div>
 
@@ -121,16 +126,35 @@ export default function App() {
             </div>
           </div>
 
-          {/* <div className="footer-chips">
-            <span className="footer-chips-label">Every trip is planned around your hours:</span>
-            <div className="footer-chip-row">
-              <span>11-hr drive limit</span>
-              <span>14-hr window</span>
-              <span>30-min break</span>
-              <span>70-hr / 8-day</span>
-              <span>Fuel every 1,000 mi</span>
+          <nav className="footer-cols">
+            <div className="footer-col">
+              <h4>What it does</h4>
+              <ul>
+                <li>Maps your route</li>
+                <li>Schedules fuel &amp; rest stops</li>
+                <li>Draws daily ELD logs</li>
+              </ul>
             </div>
-          </div> */}
+            <div className="footer-col">
+              <h4>Hours of Service</h4>
+              <ul>
+                <li>11-hour driving limit</li>
+                <li>14-hour on-duty window</li>
+                <li>70-hour / 8-day cycle</li>
+                <li>34-hour restart</li>
+              </ul>
+            </div>
+            <div className="footer-col">
+              <h4>For drivers</h4>
+              <ul>
+                <li>
+                  <a href="https://www.fmcsa.dot.gov/regulations/hours-of-service" target="_blank" rel="noreferrer">FMCSA HOS guide</a>
+                </li>
+                <li>Plan rested. Drive safe.</li>
+                <li>Property carrier · U.S. interstate</li>
+              </ul>
+            </div>
+          </nav>
 
           <div className="footer-phone" aria-hidden="true">
             <svg className="phone-gps" viewBox="0 0 92 150" xmlns="http://www.w3.org/2000/svg">
