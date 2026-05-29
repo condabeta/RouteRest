@@ -208,7 +208,11 @@ body {
 
 /* ---------- New top-down layout ---------- */
 .form-top {
-  margin-bottom: 22px;
+  margin-bottom: 26px;
+  overflow: visible; /* let the autocomplete dropdown escape the card */
+}
+.form-top .card-header {
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .form-top-grid {
@@ -299,24 +303,191 @@ body {
   margin-bottom: 22px;
 }
 
-/* ---------- Animated road band ---------- */
-.road-band {
-  position: relative;
-  height: 132px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin-bottom: 26px;
+/* ---------- Landing (empty state) ---------- */
+.landing {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.landing-hero {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 10px;
+  background: linear-gradient(135deg, #0a1424, #16304f);
+  color: #fff;
+  border: none;
+}
+
+.landing-hero-body {
+  padding: 38px 34px;
+}
+
+.landing-hero .kicker {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber-light);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 5px 11px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.landing-hero h2 {
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 12px;
+  font-weight: 800;
+}
+
+.landing-hero p {
+  color: var(--slate-300);
+  font-size: 0.95rem;
+  margin: 0 0 20px;
+  max-width: 460px;
+}
+
+.landing-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.landing-hero-art {
+  display: grid;
+  place-items: center;
+  padding: 20px 24px 20px 0;
+}
+
+.landing-hero-art svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.35));
+}
+
+@media (max-width: 760px) {
+  .landing-hero {
+    grid-template-columns: 1fr;
+  }
+  .landing-hero-art {
+    display: none;
+  }
+  .landing-hero h2 {
+    font-size: 1.6rem;
+  }
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+@media (max-width: 760px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+.step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.step-n {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--amber-light), var(--amber-dark));
+  color: #3a2607;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-amber);
+}
+
+.step-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+  color: var(--navy-900);
+}
+
+.step-text {
+  font-size: 0.84rem;
+  color: var(--slate-500);
+  line-height: 1.5;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.feature {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: linear-gradient(160deg, #fff, var(--slate-50));
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  transition: transform 0.16s, box-shadow 0.16s;
+}
+
+.feature:hover {
+  transform: translateY(-2px);
   box-shadow: var(--shadow);
+}
+
+.feature-bar {
+  flex-shrink: 0;
+  width: 4px;
+  align-self: stretch;
+  border-radius: 3px;
+}
+
+.feature-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--navy-900);
+}
+
+.feature-text {
+  font-size: 0.8rem;
+  color: var(--slate-500);
+  margin-top: 2px;
+  line-height: 1.45;
+}
+
+/* ---------- Animated road scene (bottom of the form card) ---------- */
+.road-scene {
+  position: relative;
+  height: 104px;
+  overflow: hidden;
+  border-radius: 0 0 calc(var(--radius) - 1px) calc(var(--radius) - 1px);
   background: linear-gradient(
     180deg,
     #bfdcff 0%,
-    #dcebff 50%,
-    #4a5160 64%,
+    #dcebff 48%,
+    #4a5160 62%,
     #2b313b 100%
   );
+  border-top: 1px solid var(--slate-100);
 }
 
-.road-band .hills {
+.road-scene .hills {
   position: absolute;
   left: 0;
   right: 0;
@@ -329,7 +500,7 @@ body {
   opacity: 0.8;
 }
 
-.road-band .road {
+.road-scene .road {
   position: absolute;
   left: 0;
   right: 0;
@@ -338,7 +509,7 @@ body {
   background: linear-gradient(180deg, #3a414d, #262b34);
 }
 
-.road-band .road-line {
+.road-scene .road-line {
   position: absolute;
   top: 46%;
   left: 0;
@@ -358,7 +529,7 @@ body {
   }
 }
 
-.road-band .truck {
+.road-scene .truck {
   position: absolute;
   left: 9%;
   bottom: 14px;
@@ -376,14 +547,14 @@ body {
   }
 }
 
-.road-band .speed-lines {
+.road-scene .speed-lines {
   position: absolute;
   right: 100%;
   top: 12px;
   width: 50px;
 }
 
-.road-band .speed-lines span {
+.road-scene .speed-lines span {
   display: block;
   height: 3px;
   margin: 6px 0;
@@ -391,11 +562,11 @@ body {
   background: rgba(255, 255, 255, 0.75);
   animation: dash 0.5s linear infinite;
 }
-.road-band .speed-lines span:nth-child(2) {
+.road-scene .speed-lines span:nth-child(2) {
   width: 70%;
   animation-delay: 0.12s;
 }
-.road-band .speed-lines span:nth-child(3) {
+.road-scene .speed-lines span:nth-child(3) {
   width: 50%;
   animation-delay: 0.24s;
 }
@@ -414,52 +585,52 @@ body {
   }
 }
 
-.road-band .cloud {
+.road-scene .cloud {
   position: absolute;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 999px;
   filter: blur(1px);
 }
-.road-band .cloud::before,
-.road-band .cloud::after {
+.road-scene .cloud::before,
+.road-scene .cloud::after {
   content: "";
   position: absolute;
   background: inherit;
   border-radius: 999px;
 }
-.road-band .cloud.c1 {
+.road-scene .cloud.c1 {
   width: 56px;
   height: 16px;
   top: 18px;
   animation: drift 16s linear infinite;
 }
-.road-band .cloud.c1::before {
+.road-scene .cloud.c1::before {
   width: 26px;
   height: 26px;
   top: -10px;
   left: 12px;
 }
-.road-band .cloud.c2 {
+.road-scene .cloud.c2 {
   width: 44px;
   height: 13px;
   top: 40px;
   animation: drift 22s linear infinite;
   animation-delay: -8s;
 }
-.road-band .cloud.c2::before {
+.road-scene .cloud.c2::before {
   width: 20px;
   height: 20px;
   top: -8px;
   left: 10px;
 }
-.road-band .cloud.c3 {
+.road-scene .cloud.c3 {
   width: 64px;
   height: 18px;
   top: 10px;
   animation: drift 19s linear infinite;
   animation-delay: -14s;
 }
-.road-band .cloud.c3::before {
+.road-scene .cloud.c3::before {
   width: 28px;
   height: 28px;
   top: -11px;
@@ -476,10 +647,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .road-band .road-line,
-  .road-band .truck,
-  .road-band .speed-lines span,
-  .road-band .cloud {
+  .road-scene .road-line,
+  .road-scene .truck,
+  .road-scene .speed-lines span,
+  .road-scene .cloud {
     animation: none;
   }
 }

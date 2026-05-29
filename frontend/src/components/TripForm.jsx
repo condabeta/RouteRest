@@ -1,5 +1,6 @@
 import { useState } from "react";
 import LocationInput from "./LocationInput";
+import RoadScene from "./RoadScene";
 
 export default function TripForm({ onSubmit, loading }) {
   const [form, setForm] = useState({
@@ -103,6 +104,8 @@ export default function TripForm({ onSubmit, loading }) {
           <strong>0</strong> if you're fresh off a 34-hour restart.
         </p>
       </div>
+
+      <RoadScene />
     </form>
   );
 }
