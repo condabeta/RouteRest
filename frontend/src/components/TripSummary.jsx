@@ -53,15 +53,15 @@ export default function TripSummary({ summary }) {
   ];
 
   return (
-    <div className="card summary-card">
+    <div className="card">
       <div className="card-header">
         <h2>Trip Summary</h2>
         <span className="sub">
-          {fmtHours(summary.total_duration_hours)} total
+          {fmtHours(summary.total_duration_hours)} total · {summary.average_speed_mph} mph avg
         </span>
       </div>
       <div className="card-body">
-        <div className="stats vertical">
+        <div className="stats">
           {stats.map((s) => (
             <div className="stat" key={s.label}>
               <div className="stat-icon" style={{ background: s.color }}>
