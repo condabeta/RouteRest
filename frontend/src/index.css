@@ -261,7 +261,7 @@ body {
   overflow: visible; /* let the autocomplete dropdown escape */
   border: none;
   color: #fff;
-  margin-bottom: 26px;
+  /* margin-bottom: 26px; */
   height: 91vh;
   border-radius: var(--radius);
   box-shadow: none;
@@ -1253,7 +1253,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 26px;
-  margin: 0 100px
+  margin: 50px 100px
 }
 
 /* Trip Summary (left) + Itinerary & Stops (right), below the map */
@@ -1355,7 +1355,7 @@ body {
 
 .stat .value {
   font-size: 1.4rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.03em;
   color: var(--navy-900);
   line-height: 1.1;
@@ -1654,7 +1654,7 @@ body {
   background: linear-gradient(135deg, var(--navy-800), var(--navy-600));
   color: white;
   border-color: var(--navy-800);
-  box-shadow: 0 6px 16px -4px rgba(15, 33, 56, 0.4);
+  /* box-shadow: 0 6px 16px -4px rgba(15, 33, 56, 0.4); */
 }
 
 .day-tab small {
