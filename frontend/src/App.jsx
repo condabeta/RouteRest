@@ -103,8 +103,30 @@ export default function App() {
       </div>
 
       <footer className="footer">
-        Built with Django + React · Routing by OSRM · Geocoding by Nominatim ·
-        Maps © OpenStreetMap
+        <div className="footer-inner">
+          <div className="footer-brand">
+            <div className="footer-logo">
+              <TruckIcon />
+            </div>
+            <div className="footer-brand-text">
+              <strong>RouteRest</strong>
+              <span>HOS-compliant trip planner & ELD logs</span>
+            </div>
+          </div>
+          <div className="footer-tech">
+            <span>Django</span>
+            <span>React</span>
+            <span>Leaflet</span>
+            <span>OSRM</span>
+            <span>OpenStreetMap</span>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© 2026 RouteRest · FMCSA 49 CFR §395 · 70hr / 8day</span>
+          <span>
+            Routing by OSRM · Geocoding &amp; maps © OpenStreetMap contributors
+          </span>
+        </div>
       </footer>
     </div>
   );
