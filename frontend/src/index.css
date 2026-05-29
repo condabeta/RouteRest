@@ -214,7 +214,7 @@ body {
   border: none;
   color: #fff;
   margin-bottom: 26px;
-  min-height: 700px;
+  height: 91vh;
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   /* hero-truck.jpg (your photo) draws on top; the bundled SVG is the default;
@@ -241,10 +241,99 @@ body {
   pointer-events: none;
 }
 
+/* ---------- Flowing background slideshow ---------- */
+.hero-slideshow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-slideshow .slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  will-change: opacity, transform;
+  animation: slideFade 30s infinite;
+}
+
+/* Save your photos as frontend/public/hero1.jpg … hero5.jpg.
+   The bundled SVG shows as a fallback until then. */
+.hero-slideshow .s1 {
+  background-image: url("/hero1.jpg"), url("/hero-truck-default.svg");
+  animation-delay: 0s;
+}
+.hero-slideshow .s2 {
+  background-image: url("/hero2.jpg"), url("/hero-truck-default.svg");
+  animation-delay: 6s;
+}
+.hero-slideshow .s3 {
+  background-image: url("/hero3.jpg"), url("/hero-truck-default.svg");
+  animation-delay: 12s;
+}
+.hero-slideshow .s4 {
+  background-image: url("/hero4.jpg"), url("/hero-truck-default.svg");
+  animation-delay: 18s;
+}
+.hero-slideshow .s5 {
+  background-image: url("/hero5.jpg"), url("/hero-truck-default.svg");
+  animation-delay: 24s;
+}
+
+@keyframes slideFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  4% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  24% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+/* Darken the left (form) side for legibility; let the right stay vivid */
+.hero-slideshow .hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      90deg,
+      rgba(8, 15, 28, 0.82) 0%,
+      rgba(8, 15, 28, 0.6) 32%,
+      rgba(8, 15, 28, 0.2) 60%,
+      rgba(8, 15, 28, 0.05) 100%
+    ),
+    linear-gradient(180deg, rgba(8, 15, 28, 0.1), rgba(8, 15, 28, 0.4));
+  animation: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slideshow .slide {
+    animation: none;
+    opacity: 0;
+  }
+  .hero-slideshow .s1 {
+    opacity: 1;
+  }
+}
+
 .form-hero-content {
   position: relative;
   z-index: 1;
-  padding: 26px 28px 26px;
+  padding: 56px 58px 56px;
   display: grid;
   grid-template-columns: minmax(340px, 440px) 1fr;
   gap: 30px;
@@ -388,7 +477,7 @@ body {
   box-shadow: var(--shadow-lg);
   background-color: #0e1c33;
   /* driver.png (your photo) draws on top; the bundled SVG is the default */
-  background-image: url("/driver.png"), url("/driver-default.svg");
+  background-image: url("/driver1.jpg");
   background-size: cover, cover;
   background-position: center top, center top;
   background-repeat: no-repeat, no-repeat;

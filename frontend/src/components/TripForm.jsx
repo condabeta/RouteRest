@@ -71,6 +71,15 @@ export default function TripForm({ onSubmit, loading }) {
 
   return (
     <form className="card form-hero" onSubmit={submit}>
+      <div className="hero-slideshow" aria-hidden="true">
+        <div className="slide s1" />
+        <div className="slide s2" />
+        <div className="slide s3" />
+        <div className="slide s4" />
+        <div className="slide s5" />
+        <div className="hero-scrim" />
+      </div>
+
       <div className="form-hero-content">
         <div className="hero-left">
         <div className="form-hero-head">
@@ -153,23 +162,6 @@ export default function TripForm({ onSubmit, loading }) {
             </button>
           ))}
         </div>
-        </div>
-
-        <div className="hero-right">
-          <div className="driver-card">
-            <div className="driver-overlay">
-              <span className="driver-kicker">Meet your driver</span>
-              <div className="driver-name">U.S. Interstate Trucker</div>
-              <div className="driver-role">
-                Property-carrying · CDL Class A
-              </div>
-              <div className="driver-badges">
-                <span>70hr / 8day</span>
-                <span>11h drive limit</span>
-                <span>FMCSA §395</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </form>
