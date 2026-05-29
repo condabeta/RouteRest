@@ -84,9 +84,9 @@ body {
 .topbar {
   background: linear-gradient(
     115deg,
-    rgba(6, 13, 26, 0.92) 0%,
-    rgba(15, 30, 56, 0.9) 55%,
-    rgba(22, 48, 79, 0.88) 100%
+    rgba(2, 4, 9, 0.96) 0%,
+    rgba(5, 11, 22, 0.94) 55%,
+    rgba(8, 18, 33, 0.92) 100%
   );
   backdrop-filter: blur(14px) saturate(150%);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
@@ -1667,9 +1667,9 @@ body {
   color: var(--slate-300);
   background: linear-gradient(
     115deg,
-    var(--navy-950) 0%,
-    var(--navy-800) 60%,
-    var(--navy-700) 100%
+    #02040a 0%,
+    #05101f 60%,
+    #07182e 100%
   );
 }
 
@@ -1750,26 +1750,125 @@ body {
   color: var(--slate-400);
 }
 
-.footer-tech {
+.footer-chips {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-direction: column;
+  gap: 9px;
+  max-width: 420px;
 }
 
-.footer-tech span {
+.footer-chips-label {
+  font-size: 0.74rem;
+  color: var(--slate-400);
+  font-weight: 500;
+}
+
+.footer-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.footer-chip-row span {
   font-size: 0.72rem;
   font-weight: 600;
-  color: var(--slate-300);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--amber-light);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.28);
   padding: 5px 11px;
   border-radius: 999px;
   transition: background 0.18s, transform 0.18s;
 }
 
-.footer-tech span:hover {
-  background: rgba(255, 255, 255, 0.13);
+.footer-chip-row span:hover {
+  background: rgba(245, 158, 11, 0.2);
   transform: translateY(-1px);
+}
+
+/* GPS phone illustration */
+.footer-phone {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.phone-gps {
+  width: 76px;
+  height: auto;
+  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.55));
+}
+
+.phone-gps .phone-body {
+  fill: #0a1322;
+  stroke: #2c3c58;
+  stroke-width: 2;
+}
+.phone-gps .phone-screen {
+  fill: #0c1a2d;
+}
+.phone-gps .notch {
+  fill: #2c3c58;
+}
+.phone-gps .roads {
+  stroke: #1c3252;
+  stroke-width: 5;
+  stroke-linecap: round;
+  fill: none;
+}
+.phone-gps .route {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.phone-gps .dest {
+  fill: var(--red);
+}
+.phone-gps .dest circle {
+  fill: #0c1a2d;
+}
+.phone-gps .nav-arrow {
+  fill: var(--blue);
+  stroke: #fff;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+.phone-gps .pulse {
+  fill: var(--blue);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.phone-gps .p1 {
+  opacity: 0.14;
+  animation: gpsPulse 2.2s ease-out infinite;
+}
+.phone-gps .p2 {
+  opacity: 0.22;
+  animation: gpsPulse 2.2s ease-out infinite 0.5s;
+}
+.phone-gps .gps-badge rect {
+  fill: rgba(16, 185, 129, 0.2);
+  stroke: var(--green);
+  stroke-width: 1;
+}
+.phone-gps .gps-badge text {
+  fill: #6ee7b7;
+  font-size: 6.5px;
+  font-weight: 700;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+}
+
+@keyframes gpsPulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
 }
 
 .footer-bottom {
@@ -1800,7 +1899,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .topbar::after,
-  .footer::before {
+  .footer::before,
+  .phone-gps .pulse {
     animation: none;
   }
 }

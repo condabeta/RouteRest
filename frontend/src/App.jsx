@@ -110,22 +110,52 @@ export default function App() {
             </div>
             <div className="footer-brand-text">
               <strong>RouteRest</strong>
-              <span>HOS-compliant trip planner & ELD logs</span>
+              <span>Plan your drive. Stay road-legal. Get home safe.</span>
             </div>
           </div>
-          <div className="footer-tech">
-            <span>Django</span>
-            <span>React</span>
-            <span>Leaflet</span>
-            <span>OSRM</span>
-            <span>OpenStreetMap</span>
+
+          <div className="footer-chips">
+            <span className="footer-chips-label">Every trip is planned around your hours:</span>
+            <div className="footer-chip-row">
+              <span>11-hr drive limit</span>
+              <span>14-hr window</span>
+              <span>30-min break</span>
+              <span>70-hr / 8-day</span>
+              <span>Fuel every 1,000 mi</span>
+            </div>
+          </div>
+
+          <div className="footer-phone" aria-hidden="true">
+            <svg className="phone-gps" viewBox="0 0 92 150" xmlns="http://www.w3.org/2000/svg">
+              <rect className="phone-body" x="3" y="2" width="86" height="146" rx="15" />
+              <rect className="phone-screen" x="9" y="13" width="74" height="124" rx="9" />
+              <rect className="notch" x="36" y="7" width="20" height="3" rx="1.5" />
+              <g className="roads">
+                <path d="M9 56 H83" />
+                <path d="M9 100 H83" />
+                <path d="M34 13 V137" />
+                <path d="M62 13 V137" />
+              </g>
+              <path className="route" d="M26 120 V92 Q26 78 44 78 H58 Q73 78 71 50 L67 34" />
+              <g className="dest">
+                <path d="M67 24 c-5 0 -9 4 -9 9 c0 6 9 15 9 15 s9 -9 9 -15 c0 -5 -4 -9 -9 -9 z" />
+                <circle cx="67" cy="33" r="3.2" />
+              </g>
+              <g className="gps">
+                <circle className="pulse p1" cx="26" cy="120" r="17" />
+                <circle className="pulse p2" cx="26" cy="120" r="11" />
+                <path className="nav-arrow" d="M26 110 l8 19 l-8 -6 l-8 6 z" />
+              </g>
+              <g className="gps-badge">
+                <rect x="15" y="19" width="34" height="13" rx="6.5" />
+                <text x="32" y="28.5" textAnchor="middle">GPS ON</text>
+              </g>
+            </svg>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 RouteRest · FMCSA 49 CFR §395 · 70hr / 8day</span>
-          <span>
-            Routing by OSRM · Geocoding &amp; maps © OpenStreetMap contributors
-          </span>
+          <span>© 2026 RouteRest · Drive safe, stay legal</span>
+          <span>Maps © OpenStreetMap contributors</span>
         </div>
       </footer>
     </div>
