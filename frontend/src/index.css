@@ -347,7 +347,7 @@ body {
   padding: 160px 13%;
   display: grid;
   grid-template-columns: 1fr minmax(340px, 440px);
-  gap: clamp(48px, 6vw, 110px);
+  gap: clamp(48px, 10vw, 200px);
   align-items: stretch;
 }
 
@@ -360,10 +360,9 @@ body {
 .hero-intro {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 8px 0;
+  padding: 30px 0;
   color: #fff;
 }
 
@@ -395,7 +394,7 @@ body {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.01em;
-  margin: 0 0 22px;
+  margin: 0 0 40px;
   color: #fff;
   text-shadow: 0 4px 30px rgba(0, 0, 0, 0.55);
 }
@@ -408,7 +407,7 @@ body {
   font-size: 1.08rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.9);
-  max-width: 520px;
+  max-width: 620px;
   margin: 0 auto;
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.78);
 }
@@ -537,7 +536,7 @@ body {
 }
 
 .hero-left .btn {
-  margin-top: 30px;
+  margin-top: 70px;
 }
 
 .form-hero .field-help {
@@ -1011,46 +1010,38 @@ body {
   position: relative;
   align-self: center; /* smaller than full width */
   width: auto;
-  min-width: 190px;
-  padding: 10px 30px;
-  margin-top: 24px; /* room for the roof */
-  overflow: visible;
-  border-radius: 9px 9px 13px 13px; /* car body */
-  font-size: 0.92rem;
+  min-width: 210px;
+  padding: 13px 34px;
+  margin-top: 26px;
+  overflow: hidden; /* clip the gloss + shine to the pill */
+  border-radius: 999px; /* sleek pill */
+  font-size: 0.98rem;
+  background: linear-gradient(135deg, #fcc63f, #f59e0b 52%, #d97706);
+  box-shadow: 0 12px 30px -8px rgba(245, 158, 11, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -3px 8px rgba(146, 64, 14, 0.4);
+  transition: transform 0.16s, box-shadow 0.22s;
 }
 
-.btn-go::after {
-  display: none; /* no shimmer on the car */
-}
-
-/* windshield / roof on top */
-.btn-go .car-roof {
+/* glossy top sheen */
+.btn-go::before {
+  content: "";
   position: absolute;
-  top: -13px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 48%;
-  height: 17px;
-  background: linear-gradient(180deg, var(--amber-dark), #a8540a);
-  border-radius: 8px 8px 0 0;
-  box-shadow: inset 0 5px 0 -1px rgba(186, 230, 253, 0.9); /* glass */
+  inset: 1px 1px 46% 1px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent);
+  pointer-events: none;
 }
 
-/* headlights at the top corners */
-.btn-go .car-light {
-  position: absolute;
-  top: 6px;
-  width: 17px;
-  height: 9px;
-  border-radius: 4px;
-  background: radial-gradient(circle, #fffbea, #fde047);
-  box-shadow: 0 0 9px rgba(253, 224, 71, 0.85);
+.btn-go:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 42px -8px rgba(245, 158, 11, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -3px 8px rgba(146, 64, 14, 0.4);
 }
-.btn-go .car-light-l {
-  left: 11px;
-}
-.btn-go .car-light-r {
-  right: 11px;
+
+.btn-go:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .btn-go .btn-label {
@@ -1058,9 +1049,53 @@ body {
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   font-weight: 800;
   letter-spacing: 0.02em;
+  color: #3a2607;
+}
+
+.btn-go .car-ico {
+  transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.2, 1);
+}
+.btn-go:hover:not(:disabled) .car-ico {
+  transform: translateX(6px);
+}
+
+/* speed streaks that flicker on hover */
+.btn-go .car-streaks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 16px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.btn-go .car-streaks i {
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(58, 38, 7, 0.6);
+}
+.btn-go .car-streaks i:nth-child(1) {
+  width: 16px;
+}
+.btn-go .car-streaks i:nth-child(2) {
+  width: 11px;
+}
+.btn-go .car-streaks i:nth-child(3) {
+  width: 7px;
+}
+.btn-go:hover:not(:disabled) .car-streaks {
+  opacity: 1;
+  animation: streak 0.4s linear infinite;
+}
+@keyframes streak {
+  from {
+    transform: translateX(3px);
+  }
+  to {
+    transform: translateX(-5px);
+  }
 }
 
 /* ---------- Alert toast (error notifications) ---------- */
