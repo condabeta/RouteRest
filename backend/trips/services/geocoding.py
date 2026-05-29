@@ -66,3 +66,77 @@ def geocode(query: str) -> GeoPoint:
         lat=float(top["lat"]),
         lon=float(top["lon"]),
     )
+
+
+def search_suggestions(query: str, limit: int = 6) -> list:
+    """Return up to `limit` U.S. place suggestions for an autocomplete UI.
+
+    Each suggestion is a dict with a clean `value` (e.g. "Phoenix, Arizona"),
+    a `primary`/`secondary` label split for nice rendering, and coordinates.
+    """
+    query = (query or "").strip()
+    if len(query) < 2:
+        return []
+
+    try:
+        resp = requests.get(
+            NOMINATIM_URL,
+            params={
+                "q": query,
+                "format": "json",
+                "addressdetails": 1,
+                "limit": limit,
+                "countrycodes": "us",  # U.S.-only per the HOS ruleset
+                "dedupe": 1,
+            },
+            headers={"User-Agent": settings.NOMINATIM_USER_AGENT},
+            timeout=12,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+    except requests.RequestException:
+        return []
+
+    suggestions = []
+    seen = set()
+    for item in data:
+        addr = item.get("address", {})
+        primary = (
+            addr.get("city")
+            or addr.get("town")
+            or addr.get("village")
+            or addr.get("hamlet")
+            or addr.get("county")
+            or addr.get("neighbourhood")
+            or item.get("display_name", "").split(",")[0]
+        )
+        state = addr.get("state")
+        secondary_parts = []
+        # Show county only when it adds info beyond the primary name.
+        county = addr.get("county")
+        if county and county != primary:
+            secondary_parts.append(county)
+        if state:
+            secondary_parts.append(state)
+        secondary = ", ".join(secondary_parts) if secondary_parts else "United States"
+
+        value = ", ".join(p for p in [primary, state] if p) or item.get(
+            "display_name", ""
+        )
+
+        key = value.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+
+        suggestions.append(
+            {
+                "value": value,
+                "primary": primary,
+                "secondary": secondary,
+                "lat": float(item["lat"]),
+                "lon": float(item["lon"]),
+            }
+        )
+
+    return suggestions

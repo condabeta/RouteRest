@@ -362,6 +362,100 @@ body {
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
 }
 
+/* autocomplete */
+.input-wrap.autocomplete {
+  position: relative;
+}
+
+.input-spinner {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--slate-200);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  z-index: 2000;
+  max-height: 280px;
+  overflow-y: auto;
+  animation: dropIn 0.16s ease;
+}
+
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.suggestions li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 11px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.suggestions li.active,
+.suggestions li:hover {
+  background: var(--slate-50);
+}
+
+.suggestions li.active {
+  background: rgba(59, 130, 246, 0.09);
+}
+
+.suggestions .loc-icon {
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.suggestions .loc-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.suggestions .loc-primary {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestions .loc-secondary {
+  font-size: 0.74rem;
+  color: var(--slate-500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .route-connector {
   margin-left: 18px;
   border-left: 2px dashed var(--slate-300);

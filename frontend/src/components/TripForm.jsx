@@ -1,4 +1,5 @@
 import { useState } from "react";
+import LocationInput from "./LocationInput";
 
 const EXAMPLES = [
   {
@@ -35,6 +36,9 @@ export default function TripForm({ onSubmit, loading }) {
 
   const update = (key) => (e) =>
     setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const setLoc = (key) => (val) =>
+    setForm((f) => ({ ...f, [key]: val }));
 
   const applyExample = (ex) => {
     setForm({
@@ -75,48 +79,33 @@ export default function TripForm({ onSubmit, loading }) {
         <div className="card-body">
           {error && <div className="error-box">{error}</div>}
 
-          <div className="field">
-            <label>Current location</label>
-            <div className="input-wrap">
-              <span className="pin current" />
-              <input
-                value={form.current_location}
-                onChange={update("current_location")}
-                placeholder="e.g. Los Angeles, CA"
-                autoComplete="off"
-              />
-            </div>
-          </div>
+          <LocationInput
+            label="Current location"
+            pinClass="current"
+            value={form.current_location}
+            onChange={setLoc("current_location")}
+            placeholder="Start typing a U.S. city…"
+          />
 
           <div className="route-connector" />
 
-          <div className="field">
-            <label>Pickup location</label>
-            <div className="input-wrap">
-              <span className="pin pickup" />
-              <input
-                value={form.pickup_location}
-                onChange={update("pickup_location")}
-                placeholder="e.g. Phoenix, AZ"
-                autoComplete="off"
-              />
-            </div>
-          </div>
+          <LocationInput
+            label="Pickup location"
+            pinClass="pickup"
+            value={form.pickup_location}
+            onChange={setLoc("pickup_location")}
+            placeholder="Start typing a U.S. city…"
+          />
 
           <div className="route-connector" />
 
-          <div className="field">
-            <label>Drop-off location</label>
-            <div className="input-wrap">
-              <span className="pin dropoff" />
-              <input
-                value={form.dropoff_location}
-                onChange={update("dropoff_location")}
-                placeholder="e.g. Dallas, TX"
-                autoComplete="off"
-              />
-            </div>
-          </div>
+          <LocationInput
+            label="Drop-off location"
+            pinClass="dropoff"
+            value={form.dropoff_location}
+            onChange={setLoc("dropoff_location")}
+            placeholder="Start typing a U.S. city…"
+          />
 
           <div className="field">
             <label>

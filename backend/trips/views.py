@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from .models import Trip
 from .serializers import TripInputSerializer, TripSerializer
-from .services.geocoding import GeocodingError, geocode
+from .services.geocoding import GeocodingError, geocode, search_suggestions
 from .services.routing import RoutingError, get_route
 from .services.hos_planner import plan_trip
 
@@ -19,6 +19,13 @@ def _default_start_time() -> datetime:
     return datetime.combine(
         now.date(), time(hour=DEFAULT_START_HOUR), tzinfo=timezone.utc
     )
+
+
+@api_view(["GET"])
+def geocode_suggest_view(request):
+    """Autocomplete suggestions for the location inputs (U.S.-biased)."""
+    query = request.query_params.get("q", "")
+    return Response({"results": search_suggestions(query)})
 
 
 @api_view(["POST"])

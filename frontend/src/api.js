@@ -20,4 +20,14 @@ export async function planTrip(payload) {
   return data;
 }
 
+export async function geocodeSuggest(query, signal) {
+  const res = await fetch(
+    `${API_BASE}/api/geocode/?q=${encodeURIComponent(query)}`,
+    { signal }
+  );
+  if (!res.ok) return [];
+  const data = await res.json().catch(() => ({}));
+  return data.results || [];
+}
+
 export { API_BASE };
