@@ -86,7 +86,7 @@ export default function TripForm({ onSubmit, loading }) {
         <div className="hero-intro">
           <span className="hero-kicker">Drive safe · stay legal</span>
           <h2 className="hero-title">
-            Every hour of rest brings you home safe.
+            Every hour of rest brings you <span className="hl">home safe.</span>
           </h2>
           <p className="hero-message">
             Hours-of-Service limits aren't red tape — they keep you, and
@@ -97,86 +97,111 @@ export default function TripForm({ onSubmit, loading }) {
         </div>
 
         <div className="hero-left">
-        {/* <div className="form-hero-head">
+          {/* <div className="form-hero-head">
           <h2>Plan a Trip</h2>
           <span className="hero-sub">
             Property carrier · 70hr / 8day · U.S. interstate
           </span>
         </div> */}
 
-        {error && <div className="error-box">{error}</div>}
+          {error && (
+            <div className="alert-toast" role="alert">
+              <svg className="alert-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+              <span className="alert-text">{error}</span>
+              <button
+                type="button"
+                className="alert-close"
+                onClick={() => setError("")}
+                aria-label="Dismiss"
+              >
+                ×
+              </button>
+            </div>
+          )}
 
-        <div className="hero-grid">
-          <LocationInput
-            label="Current location"
-            pinClass="current"
-            value={form.current_location}
-            onChange={setLoc("current_location")}
-            placeholder="Start typing a U.S. city…"
-          />
-          <LocationInput
-            label="Pickup location"
-            pinClass="pickup"
-            value={form.pickup_location}
-            onChange={setLoc("pickup_location")}
-            placeholder="Start typing a U.S. city…"
-          />
-          <LocationInput
-            label="Drop-off location"
-            pinClass="dropoff"
-            value={form.dropoff_location}
-            onChange={setLoc("dropoff_location")}
-            placeholder="Start typing a U.S. city…"
-          />
-
-          <div className="field">
-            <label>
-              Cycle used <span className="hint">(hrs)</span>
-            </label>
-            <input
-              className="no-pin"
-              type="number"
-              min="0"
-              max="70"
-              step="0.5"
-              value={form.current_cycle_used}
-              onChange={update("current_cycle_used")}
-              placeholder="e.g. 12"
+          <div className="hero-grid">
+            <LocationInput
+              label="Current location"
+              pinClass="current"
+              value={form.current_location}
+              onChange={setLoc("current_location")}
+              placeholder="Start typing a U.S. city…"
             />
-          </div>
+            <LocationInput
+              label="Pickup location"
+              pinClass="pickup"
+              value={form.pickup_location}
+              onChange={setLoc("pickup_location")}
+              placeholder="Start typing a U.S. city…"
+            />
+            <LocationInput
+              label="Drop-off location"
+              pinClass="dropoff"
+              value={form.dropoff_location}
+              onChange={setLoc("dropoff_location")}
+              placeholder="Start typing a U.S. city…"
+            />
 
-          <button className="btn" type="submit" disabled={loading}>
+            <div className="field">
+              <label>
+                Cycle used <span className="hint">(hrs)</span>
+              </label>
+              <input
+                className="no-pin"
+                type="number"
+                min="0"
+                max="70"
+                step="0.5"
+                value={form.current_cycle_used}
+                onChange={update("current_cycle_used")}
+                placeholder="e.g. 12"
+              />
+            </div>
+          </div>
+          
+          <p className="field-help">
+            <strong>Cycle used</strong> = on-duty hours already logged over your
+            past 8 days. The 70-hour limit counts from here — enter{" "}
+            <strong>0</strong> if you're fresh off a 34-hour restart.
+          </p>
+
+          <button className="btn btn-go" type="submit" disabled={loading}>
             {loading ? (
               <>
                 <span className="spinner" />
                 Planning…
               </>
             ) : (
-              "Generate route & logs"
+              <>
+                <svg className="btn-truck" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M10 17h4V5H2v12h3" />
+                  <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1" />
+                  <circle cx="7.5" cy="17.5" r="2.5" />
+                  <circle cx="17.5" cy="17.5" r="2.5" />
+                </svg>
+                Plan trip
+              </>
             )}
           </button>
-        </div>
 
-        <p className="field-help">
-          <strong>Cycle used</strong> = on-duty hours already logged over your
-          past 8 days. The 70-hour limit counts from here — enter{" "}
-          <strong>0</strong> if you're fresh off a 34-hour restart.
-        </p>
-
-        <div className="hero-examples">
-          <span className="ex-label">Try an example:</span>
-          {EXAMPLES.map((ex) => (
-            <button
-              type="button"
-              key={ex.label}
-              className="hero-chip"
-              onClick={() => applyExample(ex)}
-              disabled={loading}
-            >
-              {ex.label}
-            </button>
-          ))}
-        </div>
+          <div className="hero-examples">
+            <span className="ex-label">Try an example:</span>
+            {EXAMPLES.map((ex) => (
+              <button
+                type="button"
+                key={ex.label}
+                className="hero-chip"
+                onClick={() => applyExample(ex)}
+                disabled={loading}
+              >
+                {ex.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </form>

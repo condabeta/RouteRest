@@ -344,7 +344,7 @@ body {
 .form-hero-content {
   position: relative;
   z-index: 1;
-  padding: 100px 120px;
+  padding: 160px 13%;
   display: grid;
   grid-template-columns: 1fr minmax(340px, 440px);
   gap: 30px;
@@ -365,33 +365,50 @@ body {
   color: #fff;
 }
 
-.hero-message {
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.95);
-  max-width: 560px;
-  margin: 0;
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
-}
-
 .hero-kicker {
-  font-size: 0.74rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Barlow Condensed", var(--font);
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--amber-light);
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
-  margin-bottom: 16px;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+  margin-bottom: 18px;
+}
+
+.hero-kicker::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: var(--amber);
 }
 
 .hero-title {
-  font-size: clamp(2rem, 3.4vw, 3rem);
-  line-height: 1.06;
+  font-family: "Barlow Condensed", var(--font);
+  font-size: clamp(2.8rem, 5vw, 4.6rem);
+  line-height: 0.95;
   font-weight: 800;
-  letter-spacing: -0.035em;
-  margin: 0 0 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin: 0 0 22px;
   color: #fff;
-  text-shadow: 0 3px 24px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.55);
+}
+
+.hero-title .hl {
+  color: var(--amber-light);
+}
+
+.hero-message {
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 520px;
+  margin: 0;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.78);
 }
 
 .hero-copy {
@@ -474,7 +491,7 @@ body {
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
+  gap: 25px;
   align-items: stretch;
 }
 
@@ -493,19 +510,32 @@ body {
 }
 
 .hero-grid .field input {
-  background: rgba(255, 255, 255, 0.97);
-  border-color: rgba(255, 255, 255, 0.55);
+  background: #9a9da169;
+  border-color: rgb(255 255 255 / 36%);
+  border-radius: 7px;
+  color: #fff;
+  caret-color: #fff;
+}
+
+.hero-grid .field input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .hero-grid .field input:focus {
-  background: #fff;
-  border-color: var(--blue);
+  background: rgba(20, 28, 43, 0.72);
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.28);
+  color: #fff;
 }
 
 .hero-grid .btn {
   margin-top: 0;
   height: 46px;
   padding: 0 14px;
+}
+
+.hero-left .btn {
+  margin-top: 30px;
 }
 
 .form-hero .field-help {
@@ -971,6 +1001,111 @@ body {
   background: var(--slate-50);
   box-shadow: var(--shadow-sm);
   filter: none;
+}
+
+/* ---------- Car-style CTA button ---------- */
+.btn-go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  overflow: visible; /* let the wheels show below the body */
+  border-radius: 18px 18px 9px 9px; /* car body */
+  margin-bottom: 16px; /* room for wheels */
+  font-size: 1.06rem;
+  letter-spacing: 0.01em;
+}
+
+.btn-go::after {
+  display: none; /* drop the shimmer; we draw wheels instead */
+}
+
+.btn-go::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 22px;
+  pointer-events: none;
+  background: radial-gradient(
+      circle at 34px 11px,
+      #6b7280 0 3px,
+      #14223a 3px 9px,
+      transparent 9px
+    ),
+    radial-gradient(
+      circle at calc(100% - 34px) 11px,
+      #6b7280 0 3px,
+      #14223a 3px 9px,
+      transparent 9px
+    );
+  background-repeat: no-repeat;
+}
+
+.btn-go .btn-truck {
+  margin-top: -1px;
+}
+
+/* ---------- Alert toast (error notifications) ---------- */
+.alert-toast {
+  position: fixed;
+  top: 86px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 300px;
+  max-width: 92vw;
+  padding: 13px 14px 13px 16px;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  box-shadow: 0 18px 44px -10px rgba(185, 28, 28, 0.65);
+  font-weight: 600;
+  font-size: 0.9rem;
+  animation: toastIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.alert-toast .alert-icon {
+  flex-shrink: 0;
+}
+
+.alert-toast .alert-text {
+  flex: 1;
+}
+
+.alert-toast .alert-close {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.alert-toast .alert-close:hover {
+  background: rgba(255, 255, 255, 0.34);
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -16px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 .error-box {
