@@ -164,28 +164,23 @@ export default function TripForm({ onSubmit, loading }) {
           </div>
           
           <p className="field-help">
-            <strong>Cycle used</strong> = on-duty hours already logged over your
-            past 8 days. The 70-hour limit counts from here — enter{" "}
-            <strong>0</strong> if you're fresh off a 34-hour restart.
+            Cycle = on-duty hours used in your last 8 days (0–70).
           </p>
 
           <button className="btn btn-go" type="submit" disabled={loading}>
-            {loading ? (
-              <>
-                <span className="spinner" />
-                Planning…
-              </>
-            ) : (
-              <>
-                <svg className="btn-truck" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M10 17h4V5H2v12h3" />
-                  <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1" />
-                  <circle cx="7.5" cy="17.5" r="2.5" />
-                  <circle cx="17.5" cy="17.5" r="2.5" />
-                </svg>
-                Plan trip
-              </>
-            )}
+            <span className="car-roof" aria-hidden="true" />
+            <span className="car-light car-light-l" aria-hidden="true" />
+            <span className="car-light car-light-r" aria-hidden="true" />
+            <span className="btn-label">
+              {loading ? (
+                <>
+                  <span className="spinner" />
+                  Planning…
+                </>
+              ) : (
+                "Plan trip"
+              )}
+            </span>
           </button>
 
           <div className="hero-examples">

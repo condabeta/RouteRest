@@ -347,7 +347,7 @@ body {
   padding: 160px 13%;
   display: grid;
   grid-template-columns: 1fr minmax(340px, 440px);
-  gap: 30px;
+  gap: clamp(48px, 6vw, 110px);
   align-items: stretch;
 }
 
@@ -361,7 +361,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 8px 26px 8px 0;
+  align-items: center;
+  text-align: center;
+  padding: 8px 0;
   color: #fff;
 }
 
@@ -407,7 +409,7 @@ body {
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.9);
   max-width: 520px;
-  margin: 0;
+  margin: 0 auto;
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.78);
 }
 
@@ -539,11 +541,12 @@ body {
 }
 
 .form-hero .field-help {
-  margin: 16px 0 0;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+  margin: 12px 0 0;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
 }
 
 .form-hero .field-help strong {
@@ -1003,48 +1006,61 @@ body {
   filter: none;
 }
 
-/* ---------- Car-style CTA button ---------- */
+/* ---------- Car-front CTA button (smaller, centered) ---------- */
 .btn-go {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  overflow: visible; /* let the wheels show below the body */
-  border-radius: 18px 18px 9px 9px; /* car body */
-  margin-bottom: 16px; /* room for wheels */
-  font-size: 1.06rem;
-  letter-spacing: 0.01em;
+  position: relative;
+  align-self: center; /* smaller than full width */
+  width: auto;
+  min-width: 190px;
+  padding: 10px 30px;
+  margin-top: 24px; /* room for the roof */
+  overflow: visible;
+  border-radius: 9px 9px 13px 13px; /* car body */
+  font-size: 0.92rem;
 }
 
 .btn-go::after {
-  display: none; /* drop the shimmer; we draw wheels instead */
+  display: none; /* no shimmer on the car */
 }
 
-.btn-go::before {
-  content: "";
+/* windshield / roof on top */
+.btn-go .car-roof {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -10px;
-  height: 22px;
-  pointer-events: none;
-  background: radial-gradient(
-      circle at 34px 11px,
-      #6b7280 0 3px,
-      #14223a 3px 9px,
-      transparent 9px
-    ),
-    radial-gradient(
-      circle at calc(100% - 34px) 11px,
-      #6b7280 0 3px,
-      #14223a 3px 9px,
-      transparent 9px
-    );
-  background-repeat: no-repeat;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48%;
+  height: 17px;
+  background: linear-gradient(180deg, var(--amber-dark), #a8540a);
+  border-radius: 8px 8px 0 0;
+  box-shadow: inset 0 5px 0 -1px rgba(186, 230, 253, 0.9); /* glass */
 }
 
-.btn-go .btn-truck {
-  margin-top: -1px;
+/* headlights at the top corners */
+.btn-go .car-light {
+  position: absolute;
+  top: 6px;
+  width: 17px;
+  height: 9px;
+  border-radius: 4px;
+  background: radial-gradient(circle, #fffbea, #fde047);
+  box-shadow: 0 0 9px rgba(253, 224, 71, 0.85);
+}
+.btn-go .car-light-l {
+  left: 11px;
+}
+.btn-go .car-light-r {
+  right: 11px;
+}
+
+.btn-go .btn-label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 /* ---------- Alert toast (error notifications) ---------- */
