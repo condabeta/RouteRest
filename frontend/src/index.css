@@ -730,7 +730,7 @@ body {
   background: var(--card);
   /* border-radius: var(--radius); */
   box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1.5px solid var(--slate-300);
   overflow: hidden;
   position: relative;
   animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -760,38 +760,41 @@ body {
   animation-delay: 0.2s;
 }
 
+/* section title as a clean uppercase label with an amber underline */
 .card-header {
-  padding: 15px 22px;
-  border-bottom: 2px solid var(--amber);
+  padding: 18px 22px 0;
+  background: transparent;
+  border: none;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 10px;
-  background: linear-gradient(120deg, var(--navy-900) 0%, var(--navy-700) 100%);
-  color: #fff;
 }
 
 .card-header h2 {
+  position: relative;
   margin: 0;
-  font-size: 1.02rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 9px;
+  padding-bottom: 9px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy-800);
 }
 
-.card-header h2::before {
+.card-header h2::after {
   content: "";
-  width: 4px;
-  height: 17px;
-  border-radius: 3px;
-  background: linear-gradient(180deg, var(--amber), var(--amber-dark));
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 30px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--amber), var(--amber-dark));
 }
 
 .card-header .sub {
-  font-size: 0.78rem;
-  color: var(--slate-300);
+  font-size: 0.74rem;
+  color: var(--slate-500);
   margin-left: auto;
   font-weight: 500;
 }
@@ -1250,7 +1253,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 26px;
-  margin: 0 250px
+  margin: 0 100px
 }
 
 /* Trip Summary (left) + Itinerary & Stops (right), below the map */
