@@ -185,6 +185,13 @@ body {
   }
 }
 
+.container1 {
+  width: 100%;
+  /* max-width: 1280px;
+  margin: 0 auto;
+  padding: 30px; */
+  flex: 1;
+}
 .container {
   width: 100%;
   max-width: 1280px;
@@ -322,6 +329,46 @@ body {
 
 .form-hero .field-help strong {
   color: #fff;
+}
+
+.hero-examples {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.hero-examples .ex-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+  margin-right: 2px;
+}
+
+.hero-chip {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.15s, transform 0.1s;
+  font-family: inherit;
+}
+
+.hero-chip:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.hero-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (max-width: 1100px) {

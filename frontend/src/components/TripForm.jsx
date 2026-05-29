@@ -1,6 +1,30 @@
 import { useState } from "react";
 import LocationInput from "./LocationInput";
 
+const EXAMPLES = [
+  {
+    label: "LA → Phoenix → Dallas",
+    current_location: "Los Angeles, California",
+    pickup_location: "Phoenix, Arizona",
+    dropoff_location: "Dallas, Texas",
+    current_cycle_used: "8",
+  },
+  {
+    label: "Chicago → Indy → Atlanta",
+    current_location: "Chicago, Illinois",
+    pickup_location: "Indianapolis, Indiana",
+    dropoff_location: "Atlanta, Georgia",
+    current_cycle_used: "20",
+  },
+  {
+    label: "Seattle → Portland → Denver",
+    current_location: "Seattle, Washington",
+    pickup_location: "Portland, Oregon",
+    dropoff_location: "Denver, Colorado",
+    current_cycle_used: "45",
+  },
+];
+
 export default function TripForm({ onSubmit, loading }) {
   const [form, setForm] = useState({
     current_location: "",
@@ -15,6 +39,16 @@ export default function TripForm({ onSubmit, loading }) {
 
   const setLoc = (key) => (val) =>
     setForm((f) => ({ ...f, [key]: val }));
+
+  const applyExample = (ex) => {
+    setError("");
+    setForm({
+      current_location: ex.current_location,
+      pickup_location: ex.pickup_location,
+      dropoff_location: ex.dropoff_location,
+      current_cycle_used: ex.current_cycle_used,
+    });
+  };
 
   const submit = (e) => {
     e.preventDefault();
@@ -103,6 +137,21 @@ export default function TripForm({ onSubmit, loading }) {
           past 8 days. The 70-hour limit counts from here — enter{" "}
           <strong>0</strong> if you're fresh off a 34-hour restart.
         </p>
+
+        <div className="hero-examples">
+          <span className="ex-label">Try an example:</span>
+          {EXAMPLES.map((ex) => (
+            <button
+              type="button"
+              key={ex.label}
+              className="hero-chip"
+              onClick={() => applyExample(ex)}
+              disabled={loading}
+            >
+              {ex.label}
+            </button>
+          ))}
+        </div>
       </div>
     </form>
   );
