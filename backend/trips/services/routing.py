@@ -5,6 +5,7 @@ http://project-osrm.org/docs/v5.24.0/api/
 """
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass, field
 
 import requests
@@ -60,26 +61,33 @@ def get_route(points: list) -> Route:
         raise RoutingError("At least two points are required for a route.")
 
     coord_str = ";".join(f"{p.lon},{p.lat}" for p in points)
+    params = {
+        "overview": "full",
+        "geometries": "geojson",
+        "steps": "false",
+        "annotations": "false",
+    }
+    last_exc = None
+    resp = None
+    for attempt in range(3):  # retry transient network failures
+        try:
+            resp = requests.get(f"{OSRM_URL}/{coord_str}", params=params, timeout=30)
+            break
+        except requests.RequestException as exc:
+            last_exc = exc
+            if attempt < 2:
+                time.sleep(0.6)
+    if resp is None:
+        raise RoutingError(
+            "The routing service is temporarily unreachable. Please try again."
+        ) from last_exc
+
     try:
-        resp = requests.get(
-            f"{OSRM_URL}/{coord_str}",
-            params={
-                "overview": "full",
-                "geometries": "geojson",
-                "steps": "false",
-                "annotations": "false",
-            },
-            timeout=30,
-        )
         data = resp.json()
     except ValueError:
         raise RoutingError(
             "The routing service returned an unexpected response. Please try again."
         )
-    except requests.RequestException as exc:
-        raise RoutingError(
-            "The routing service is temporarily unreachable. Please try again."
-        ) from exc
 
     # OSRM replies with a JSON `code` even on 4xx (e.g. NoRoute / InvalidQuery).
     if data.get("code") != "Ok" or not data.get("routes"):

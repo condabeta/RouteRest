@@ -4,6 +4,7 @@ import RouteMap from "./components/RouteMap";
 import TripSummary from "./components/TripSummary";
 import StopsTimeline from "./components/StopsTimeline";
 import LogSheets from "./components/LogSheets";
+import ComplianceCard from "./components/ComplianceCard";
 import { planTrip } from "./api";
 
 function TruckIcon() {
@@ -122,6 +123,9 @@ export default function App() {
                 </div>
                 <RouteMap plan={plan} />
               </div>
+
+              {/* HOS compliance summary */}
+              <ComplianceCard items={plan.compliance} />
 
               {/* Trip Summary (left) + Itinerary & Stops (right) */}
               <div className="results-split">

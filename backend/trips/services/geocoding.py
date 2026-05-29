@@ -5,6 +5,7 @@ per its usage policy: https://operations.osmfoundation.org/policies/nominatim/
 """
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass
 
 import requests
@@ -15,6 +16,21 @@ NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 
 class GeocodingError(Exception):
     pass
+
+
+def _get_with_retry(url, *, params=None, headers=None, timeout=15, retries=2):
+    """GET that retries transient network failures (free APIs can blip)."""
+    last_exc = None
+    for attempt in range(retries + 1):
+        try:
+            return requests.get(
+                url, params=params, headers=headers, timeout=timeout
+            )
+        except requests.RequestException as exc:
+            last_exc = exc
+            if attempt < retries:
+                time.sleep(0.6)
+    raise last_exc
 
 
 @dataclass
@@ -40,7 +56,7 @@ def geocode(query: str) -> GeoPoint:
         raise GeocodingError("Location is empty.")
 
     try:
-        resp = requests.get(
+        resp = _get_with_retry(
             NOMINATIM_URL,
             params={
                 "q": query,
@@ -54,7 +70,9 @@ def geocode(query: str) -> GeoPoint:
         resp.raise_for_status()
         data = resp.json()
     except requests.RequestException as exc:
-        raise GeocodingError(f"Geocoding service unavailable: {exc}") from exc
+        raise GeocodingError(
+            "The geocoding service is temporarily unavailable. Please try again."
+        ) from exc
 
     if not data:
         raise GeocodingError(f"Could not find a location for '{query}'.")

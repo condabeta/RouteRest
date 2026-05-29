@@ -799,6 +799,56 @@ body {
   padding: 22px;
 }
 
+/* HOS compliance checklist */
+.compliance-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px 22px;
+}
+
+.compliance-list li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.compliance-list .ck {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+
+.compliance-list li.ok .ck {
+  background: var(--green);
+}
+.compliance-list li.bad .ck {
+  background: var(--red);
+}
+
+.compliance-list .cl {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.compliance-list .cl-label {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--navy-900);
+}
+
+.compliance-list .cl-detail {
+  font-size: 0.74rem;
+  color: var(--slate-500);
+}
+
 /* brief site intro above the map card (sits on the dark page) */
 .site-intro {
   text-align: center;
