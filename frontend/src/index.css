@@ -1055,47 +1055,35 @@ body {
   color: #3a2607;
 }
 
-.btn-go .car-ico {
-  transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.2, 1);
+/* front-of-car icon */
+.btn-go .car-front {
+  width: 30px;
+  height: 28px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
 }
-.btn-go:hover:not(:disabled) .car-ico {
-  transform: translateX(6px);
+.btn-go .car-front .body,
+.btn-go .car-front .windshield,
+.btn-go .car-front .bumper,
+.btn-go .car-front .tire {
+  stroke: #3a2607;
+  fill: none;
 }
-
-/* speed streaks that flicker on hover */
-.btn-go .car-streaks {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 16px;
-  opacity: 0;
-  transition: opacity 0.2s;
+.btn-go .car-front .hl {
+  fill: rgba(58, 38, 7, 0.55);
+  stroke: none;
+  transition: fill 0.25s, filter 0.25s;
 }
-.btn-go .car-streaks i {
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(58, 38, 7, 0.6);
+.btn-go .car-front .grille {
+  fill: rgba(58, 38, 7, 0.28);
+  stroke: none;
 }
-.btn-go .car-streaks i:nth-child(1) {
-  width: 16px;
+.btn-go:hover:not(:disabled) .car-front {
+  transform: scale(1.07);
 }
-.btn-go .car-streaks i:nth-child(2) {
-  width: 11px;
-}
-.btn-go .car-streaks i:nth-child(3) {
-  width: 7px;
-}
-.btn-go:hover:not(:disabled) .car-streaks {
-  opacity: 1;
-  animation: streak 0.4s linear infinite;
-}
-@keyframes streak {
-  from {
-    transform: translateX(3px);
-  }
-  to {
-    transform: translateX(-5px);
-  }
+.btn-go:hover:not(:disabled) .car-front .hl {
+  fill: #fff7d6;
+  filter: drop-shadow(0 0 3px #fde047) drop-shadow(0 0 6px #fbbf24);
 }
 
 /* ---------- Alert toast (error notifications) ---------- */

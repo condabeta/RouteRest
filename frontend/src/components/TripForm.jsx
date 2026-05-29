@@ -176,15 +176,15 @@ export default function TripForm({ onSubmit, loading }) {
                 </>
               ) : (
                 <>
-                  <span className="car-streaks" aria-hidden="true">
-                    <i />
-                    <i />
-                    <i />
-                  </span>
-                  <svg className="car-ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
-                    <circle cx="7" cy="17" r="2" />
-                    <circle cx="17" cy="17" r="2" />
+                  <svg className="car-front" viewBox="0 0 40 36" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path className="body" d="M8 31 V17 C8 11 12 8 20 8 C28 8 32 11 32 17 V31" />
+                    <path className="windshield" d="M13.5 14.5 C15 11.5 17 10.5 20 10.5 C23 10.5 25 11.5 26.5 14.5" />
+                    <line className="bumper" x1="5" y1="31" x2="35" y2="31" />
+                    <rect className="hl hl-l" x="10.5" y="18" width="5.5" height="3.2" rx="1.3" />
+                    <rect className="hl hl-r" x="24" y="18" width="5.5" height="3.2" rx="1.3" />
+                    <rect className="grille" x="16.5" y="23.5" width="7" height="3.6" rx="1" />
+                    <line className="tire" x1="12" y1="31" x2="12" y2="34" />
+                    <line className="tire" x1="28" y1="31" x2="28" y2="34" />
                   </svg>
                   <span className="btn-text">Plan trip</span>
                 </>
