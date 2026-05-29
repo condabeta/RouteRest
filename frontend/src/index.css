@@ -1009,17 +1009,14 @@ body {
 .btn-go {
   position: relative;
   align-self: center; /* smaller than full width */
-  width: auto;
-  min-width: 210px;
-  padding: 13px 34px;
-  margin-top: 26px;
+  /* width: auto;
+  min-width: 250px; */
+  padding: 10px 0px;
   overflow: hidden; /* clip the gloss + shine */
   border-radius: 0; /* square */
   font-size: 0.98rem;
   background: linear-gradient(135deg, #fcc63f, #f59e0b 52%, #d97706);
-  box-shadow: 0 12px 30px -8px rgba(245, 158, 11, 0.75),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    inset 0 -3px 8px rgba(146, 64, 14, 0.4);
+  border-radius: 10px;
   transition: transform 0.16s, box-shadow 0.22s;
 }
 
@@ -1035,9 +1032,9 @@ body {
 
 .btn-go:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 20px 42px -8px rgba(245, 158, 11, 0.9),
+  /* box-shadow: 0 20px 42px -8px rgba(245, 158, 11, 0.9),
     inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -3px 8px rgba(146, 64, 14, 0.4);
+    inset 0 -3px 8px rgba(146, 64, 14, 0.4); */
 }
 
 .btn-go:active:not(:disabled) {
@@ -1049,7 +1046,7 @@ body {
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 20px;
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #3a2607;
