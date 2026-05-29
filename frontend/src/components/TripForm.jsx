@@ -36,15 +36,17 @@ export default function TripForm({ onSubmit, loading }) {
   };
 
   return (
-    <form className="card form" onSubmit={submit}>
-      <div className="sticky">
-        <div className="card-header">
-          <h2>Plan a Trip</h2>
-          <span className="sub">Property carrier · 70hr/8day</span>
-        </div>
-        <div className="card-body">
-          {error && <div className="error-box">{error}</div>}
+    <form className="card form-top" onSubmit={submit}>
+      <div className="card-header">
+        <h2>Plan a Trip</h2>
+        <span className="sub">
+          Property carrier · 70hr / 8day · U.S. interstate
+        </span>
+      </div>
+      <div className="card-body">
+        {error && <div className="error-box">{error}</div>}
 
+        <div className="form-top-grid">
           <LocationInput
             label="Current location"
             pinClass="current"
@@ -52,9 +54,6 @@ export default function TripForm({ onSubmit, loading }) {
             onChange={setLoc("current_location")}
             placeholder="Start typing a U.S. city…"
           />
-
-          <div className="route-connector" />
-
           <LocationInput
             label="Pickup location"
             pinClass="pickup"
@@ -62,9 +61,6 @@ export default function TripForm({ onSubmit, loading }) {
             onChange={setLoc("pickup_location")}
             placeholder="Start typing a U.S. city…"
           />
-
-          <div className="route-connector" />
-
           <LocationInput
             label="Drop-off location"
             pinClass="dropoff"
@@ -75,8 +71,7 @@ export default function TripForm({ onSubmit, loading }) {
 
           <div className="field">
             <label>
-              Current cycle used{" "}
-              <span className="hint">(hrs, 0–70)</span>
+              Cycle used <span className="hint">(hrs)</span>
             </label>
             <input
               className="no-pin"
@@ -88,24 +83,25 @@ export default function TripForm({ onSubmit, loading }) {
               onChange={update("current_cycle_used")}
               placeholder="e.g. 12"
             />
-            <p className="field-help">
-              On-duty hours you've already logged over the past 8 days. The
-              70-hour cycle starts here — enter <strong>0</strong> if you're
-              fresh off a 34-hour restart.
-            </p>
           </div>
 
           <button className="btn" type="submit" disabled={loading}>
             {loading ? (
               <>
                 <span className="spinner" />
-                Planning route…
+                Planning…
               </>
             ) : (
               "Generate route & logs"
             )}
           </button>
         </div>
+
+        <p className="field-help">
+          <strong>Cycle used</strong> = on-duty hours already logged over your
+          past 8 days. The 70-hour limit counts from here — enter{" "}
+          <strong>0</strong> if you're fresh off a 34-hour restart.
+        </p>
       </div>
     </form>
   );

@@ -6,14 +6,49 @@ import StopsTimeline from "./components/StopsTimeline";
 import LogSheets from "./components/LogSheets";
 import { planTrip } from "./api";
 
-function TruckIcon() {
+function TruckIcon({ stroke = "#0b1729", size = 22 }) {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1729" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M10 17h4V5H2v12h3" />
       <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1" />
       <circle cx="7.5" cy="17.5" r="2.5" />
       <circle cx="17.5" cy="17.5" r="2.5" />
     </svg>
+  );
+}
+
+// Decorative animated "driving" band shown below the form.
+function RoadBand() {
+  return (
+    <div className="road-band" aria-hidden="true">
+      <div className="cloud c1" />
+      <div className="cloud c2" />
+      <div className="cloud c3" />
+      <div className="hills" />
+      <div className="road">
+        <div className="road-line" />
+      </div>
+      <div className="truck">
+        <svg width="78" height="48" viewBox="0 0 78 48" fill="none">
+          {/* trailer */}
+          <rect x="2" y="8" width="44" height="26" rx="3" fill="#e2e8f0" stroke="#0b1729" strokeWidth="2" />
+          <rect x="8" y="13" width="32" height="6" rx="1" fill="#cbd5e1" />
+          {/* cab */}
+          <path d="M46 16h12l8 8v10H46z" fill="#f59e0b" stroke="#0b1729" strokeWidth="2" strokeLinejoin="round" />
+          <path d="M58 18h6l4 6h-10z" fill="#bae6fd" stroke="#0b1729" strokeWidth="1.5" />
+          {/* wheels */}
+          <circle cx="16" cy="36" r="6" fill="#1e293b" stroke="#0b1729" strokeWidth="2" />
+          <circle cx="16" cy="36" r="2" fill="#94a3b8" />
+          <circle cx="56" cy="36" r="6" fill="#1e293b" stroke="#0b1729" strokeWidth="2" />
+          <circle cx="56" cy="36" r="2" fill="#94a3b8" />
+        </svg>
+        <div className="speed-lines">
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -28,7 +63,6 @@ export default function App() {
     try {
       const data = await planTrip(payload);
       setResult(data);
-      // Scroll results into view on small screens.
       setTimeout(() => {
         document
           .getElementById("results-top")
@@ -60,47 +94,52 @@ export default function App() {
       </header>
 
       <div className="container">
-        <div className="layout">
-          <TripForm onSubmit={handleSubmit} loading={loading} />
+        <TripForm onSubmit={handleSubmit} loading={loading} />
 
-          <div className="results" id="results-top">
-            {error && <div className="error-box">{error}</div>}
+        <RoadBand />
 
-            {!plan && !error && (
-              <div className="card">
-                <div className="placeholder">
-                  <div className="big-icon">
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0 0 21 18.382V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7" />
-                    </svg>
-                  </div>
-                  <h3>Plan your first trip</h3>
-                  <p>
-                    Enter your locations and current cycle hours, and we'll map
-                    the route with required rest stops and draw your daily ELD
-                    log sheets.
-                  </p>
+        <div id="results-top">
+          {error && <div className="error-box top-error">{error}</div>}
+
+          {!plan && !error && (
+            <div className="card">
+              <div className="placeholder">
+                <div className="big-icon">
+                  <TruckIcon stroke="#94a3b8" size={36} />
                 </div>
+                <h3>Plan your first trip</h3>
+                <p>
+                  Enter your route and current cycle hours above, then we'll map
+                  the drive with every required rest stop and draw your daily
+                  ELD log sheets.
+                </p>
               </div>
-            )}
+            </div>
+          )}
 
-            {plan && (
-              <>
+          {plan && (
+            <div className="results">
+              {/* Row 1 — Trip Summary (left) + Route Map (right), equal height */}
+              <div className="grid-pair top">
                 <TripSummary summary={plan.summary} />
-                <div className="card">
+                <div className="card map-card">
                   <div className="card-header">
                     <h2>Route Map</h2>
                     <span className="sub">
-                      OpenStreetMap · {Math.round(plan.summary.total_distance_miles)} mi
+                      {Math.round(plan.summary.total_distance_miles)} mi · OpenStreetMap
                     </span>
                   </div>
                   <RouteMap plan={plan} />
                 </div>
+              </div>
+
+              {/* Row 2 — Itinerary (left) + Daily Log Sheets (right) */}
+              <div className="grid-pair bottom">
                 <StopsTimeline stops={plan.stops} />
                 <LogSheets dailyLogs={plan.daily_logs} />
-              </>
-            )}
-          </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

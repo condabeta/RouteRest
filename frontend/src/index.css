@@ -206,6 +206,284 @@ body {
   }
 }
 
+/* ---------- New top-down layout ---------- */
+.form-top {
+  margin-bottom: 22px;
+}
+
+.form-top-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 130px 190px;
+  gap: 14px;
+  align-items: end;
+}
+
+.form-top-grid .field {
+  margin-bottom: 0;
+}
+
+.form-top-grid .btn {
+  margin-top: 0;
+  height: 46px;
+  padding: 0 14px;
+}
+
+@media (max-width: 1100px) {
+  .form-top-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-top-grid .btn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .form-top-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.grid-pair {
+  display: grid;
+  gap: 26px;
+}
+
+.grid-pair.top {
+  grid-template-columns: 340px 1fr;
+  align-items: stretch; /* Trip Summary + Route Map share the same height */
+}
+
+.grid-pair.bottom {
+  grid-template-columns: 400px 1fr;
+  align-items: start;
+}
+
+@media (max-width: 1000px) {
+  .grid-pair.top,
+  .grid-pair.bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Trip Summary as a single vertical column */
+.summary-card {
+  display: flex;
+  flex-direction: column;
+}
+.summary-card .card-body {
+  flex: 1;
+}
+.stats.vertical {
+  grid-template-columns: 1fr;
+  height: 100%;
+}
+
+/* Route Map stretches to match the Trip Summary height */
+.map-card {
+  display: flex;
+  flex-direction: column;
+}
+.map-card .map-wrap {
+  flex: 1 1 auto;
+  min-height: 380px;
+  height: auto;
+}
+
+.top-error {
+  margin-bottom: 22px;
+}
+
+/* ---------- Animated road band ---------- */
+.road-band {
+  position: relative;
+  height: 132px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 26px;
+  box-shadow: var(--shadow);
+  background: linear-gradient(
+    180deg,
+    #bfdcff 0%,
+    #dcebff 50%,
+    #4a5160 64%,
+    #2b313b 100%
+  );
+}
+
+.road-band .hills {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36%;
+  height: 60px;
+  background: radial-gradient(60px 40px at 12% 100%, #93c5a3 60%, transparent 62%),
+    radial-gradient(80px 50px at 34% 100%, #7fb893 60%, transparent 62%),
+    radial-gradient(70px 44px at 60% 100%, #93c5a3 60%, transparent 62%),
+    radial-gradient(90px 52px at 85% 100%, #7fb893 60%, transparent 62%);
+  opacity: 0.8;
+}
+
+.road-band .road {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36%;
+  background: linear-gradient(180deg, #3a414d, #262b34);
+}
+
+.road-band .road-line {
+  position: absolute;
+  top: 46%;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: repeating-linear-gradient(
+    90deg,
+    #f5c542 0 34px,
+    transparent 34px 64px
+  );
+  animation: roadMove 0.5s linear infinite;
+}
+
+@keyframes roadMove {
+  to {
+    background-position-x: -64px;
+  }
+}
+
+.road-band .truck {
+  position: absolute;
+  left: 9%;
+  bottom: 14px;
+  animation: truckBob 0.5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 6px 4px rgba(0, 0, 0, 0.3));
+  z-index: 2;
+}
+
+@keyframes truckBob {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2px);
+  }
+}
+
+.road-band .speed-lines {
+  position: absolute;
+  right: 100%;
+  top: 12px;
+  width: 50px;
+}
+
+.road-band .speed-lines span {
+  display: block;
+  height: 3px;
+  margin: 6px 0;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.75);
+  animation: dash 0.5s linear infinite;
+}
+.road-band .speed-lines span:nth-child(2) {
+  width: 70%;
+  animation-delay: 0.12s;
+}
+.road-band .speed-lines span:nth-child(3) {
+  width: 50%;
+  animation-delay: 0.24s;
+}
+
+@keyframes dash {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+}
+
+.road-band .cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  filter: blur(1px);
+}
+.road-band .cloud::before,
+.road-band .cloud::after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: 999px;
+}
+.road-band .cloud.c1 {
+  width: 56px;
+  height: 16px;
+  top: 18px;
+  animation: drift 16s linear infinite;
+}
+.road-band .cloud.c1::before {
+  width: 26px;
+  height: 26px;
+  top: -10px;
+  left: 12px;
+}
+.road-band .cloud.c2 {
+  width: 44px;
+  height: 13px;
+  top: 40px;
+  animation: drift 22s linear infinite;
+  animation-delay: -8s;
+}
+.road-band .cloud.c2::before {
+  width: 20px;
+  height: 20px;
+  top: -8px;
+  left: 10px;
+}
+.road-band .cloud.c3 {
+  width: 64px;
+  height: 18px;
+  top: 10px;
+  animation: drift 19s linear infinite;
+  animation-delay: -14s;
+}
+.road-band .cloud.c3::before {
+  width: 28px;
+  height: 28px;
+  top: -11px;
+  left: 16px;
+}
+
+@keyframes drift {
+  from {
+    left: -90px;
+  }
+  to {
+    left: 110%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .road-band .road-line,
+  .road-band .truck,
+  .road-band .speed-lines span,
+  .road-band .cloud {
+    animation: none;
+  }
+}
+
 /* ---------- Cards ---------- */
 .card {
   background: var(--card);
