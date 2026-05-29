@@ -114,7 +114,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="footer-chips">
+          {/* <div className="footer-chips">
             <span className="footer-chips-label">Every trip is planned around your hours:</span>
             <div className="footer-chip-row">
               <span>11-hr drive limit</span>
@@ -123,7 +123,7 @@ export default function App() {
               <span>70-hr / 8-day</span>
               <span>Fuel every 1,000 mi</span>
             </div>
-          </div>
+          </div> */}
 
           <div className="footer-phone" aria-hidden="true">
             <svg className="phone-gps" viewBox="0 0 92 150" xmlns="http://www.w3.org/2000/svg">
