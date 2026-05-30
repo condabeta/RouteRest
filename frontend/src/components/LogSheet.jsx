@@ -32,8 +32,12 @@ const HOUR_LABELS = [
   "Noon", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "Mid",
 ];
 
+const fmt = (n) =>
+  n == null ? "" : (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, "");
+
 export default function LogSheet({ day, index, total, meta = {} }) {
   const segments = day.segments || [];
+  const recap = day.recap || {};
 
   // Build the duty-status step line path.
   let path = "";
@@ -63,45 +67,86 @@ export default function LogSheet({ day, index, total, meta = {} }) {
     }
   });
 
+  // Split the ISO date into the form's month / day / year boxes.
+  const [yyyy = "", mm = "", dd = ""] = (day.date || "").split("-");
+  const miles = Math.round(day.driving_miles);
+
   return (
-    <div className="logsheet">
-      <div className="log-head">
-        <div className="title">
-          Driver's Daily Log
-          <small>(24 hours) · One calendar day · U.S. DOT — FMCSA</small>
+    <div className="logsheet dl">
+      {/* ---- Title row ---- */}
+      <div className="dl-titlerow">
+        <div className="dl-title">
+          Driver's Daily Log <span>(24 hours)</span>
         </div>
-        <div className="log-meta">
-          <div className="item">
-            <div className="k">Date</div>
-            <div className="v">{day.date}</div>
+        <div className="dl-date">
+          <div className="dl-date-vals">
+            <span>{mm}</span>/<span>{dd}</span>/<span>{yyyy}</span>
           </div>
-          <div className="item">
-            <div className="k">Day</div>
-            <div className="v">
-              {index + 1} of {total}
+          <div className="dl-date-lbls">
+            <span>(month)</span><span>(day)</span><span>(year)</span>
+          </div>
+        </div>
+        <div className="dl-original">
+          <div>Original — File at home terminal.</div>
+          <div>Duplicate — Driver retains in his/her possession for 8 days.</div>
+          <div className="dl-day-of">
+            Day {index + 1} of {total} · {fmtDate(day.date)}
+          </div>
+        </div>
+      </div>
+
+      {/* ---- From / To ---- */}
+      <div className="dl-fromto">
+        <div className="dl-line">
+          <span className="lbl">From:</span>
+          <span className="val">{meta.from || "—"}</span>
+        </div>
+        <div className="dl-line">
+          <span className="lbl">To:</span>
+          <span className="val">{meta.to || "—"}</span>
+        </div>
+      </div>
+
+      {/* ---- Mileage + carrier block ---- */}
+      <div className="dl-block">
+        <div className="dl-block-left">
+          <div className="dl-boxes">
+            <div className="dl-box">
+              <div className="bv">{miles}</div>
+              <div className="bl">Total Miles Driving Today</div>
+            </div>
+            <div className="dl-box">
+              <div className="bv">{miles}</div>
+              <div className="bl">Total Mileage Today</div>
             </div>
           </div>
-          <div className="item">
-            <div className="k">Total miles driving today</div>
-            <div className="v">{Math.round(day.driving_miles)}</div>
+          <div className="dl-box wide">
+            <div className="bv">
+              {meta.tractor || "—"} / {meta.trailer || "—"}
+            </div>
+            <div className="bl">
+              Truck/Tractor and Trailer Numbers or License Plate(s)/State
+              (show each unit)
+            </div>
+          </div>
+        </div>
+        <div className="dl-block-right">
+          <div className="dl-named">
+            <div className="nv">{meta.carrier || "—"}</div>
+            <div className="nl">Name of Carrier or Carriers</div>
+          </div>
+          <div className="dl-named">
+            <div className="nv">{meta.office || "—"}</div>
+            <div className="nl">Main Office Address</div>
+          </div>
+          <div className="dl-named">
+            <div className="nv">{meta.homeTerminal || meta.office || "—"}</div>
+            <div className="nl">Home Terminal Address</div>
           </div>
         </div>
       </div>
 
-      <div style={{ fontSize: "0.72rem", color: "#64748b", marginBottom: 8 }}>
-        {fmtDate(day.date)}
-      </div>
-
-      {/* Standard FMCSA header fields */}
-      <div className="log-fields">
-        <div className="f"><span className="k">From</span><span className="v">{meta.from || "—"}</span></div>
-        <div className="f"><span className="k">To</span><span className="v">{meta.to || "—"}</span></div>
-        <div className="f"><span className="k">Carrier</span><span className="v">{meta.carrier || "—"}</span></div>
-        <div className="f"><span className="k">Main office</span><span className="v">{meta.office || "—"}</span></div>
-        <div className="f"><span className="k">Tractor / Trailer no.</span><span className="v">{meta.tractor || "—"} / {meta.trailer || "—"}</span></div>
-        <div className="f"><span className="k">Co-driver</span><span className="v">{meta.coDriver || "None"}</span></div>
-      </div>
-
+      {/* ---- Duty-status grid ---- */}
       <svg
         className="log-grid-svg"
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
@@ -116,7 +161,7 @@ export default function LogSheet({ day, index, total, meta = {} }) {
             y={GRID_TOP - 8}
             fontSize="9"
             textAnchor="middle"
-            fill="#475569"
+            fill="#111"
             fontWeight={lbl === "Mid" || lbl === "Noon" ? 700 : 400}
           >
             {lbl}
@@ -129,10 +174,10 @@ export default function LogSheet({ day, index, total, meta = {} }) {
           y={GRID_TOP - 8}
           fontSize="9"
           textAnchor="middle"
-          fill="#475569"
+          fill="#111"
           fontWeight="700"
         >
-          Total
+          Total Hours
         </text>
 
         {/* Quarter-hour minor gridlines */}
@@ -146,32 +191,23 @@ export default function LogSheet({ day, index, total, meta = {} }) {
               y1={GRID_TOP}
               x2={X(hour)}
               y2={GRID_BOTTOM}
-              stroke={isHour ? "#94a3b8" : "#e2e8f0"}
+              stroke={isHour ? "#222" : "#9aa3ad"}
               strokeWidth={isHour ? 1 : 0.5}
             />
           );
         })}
 
-        {/* Row horizontal lines + labels + shading */}
+        {/* Row horizontal lines + labels */}
         {STATUS_ORDER.map((status, r) => {
           const yTop = GRID_TOP + r * ROW_H;
           return (
             <g key={`row-${r}`}>
-              {r % 2 === 1 && (
-                <rect
-                  x={GRID_LEFT}
-                  y={yTop}
-                  width={GRID_W}
-                  height={ROW_H}
-                  fill="#f8fafc"
-                />
-              )}
               <line
                 x1={GRID_LEFT}
                 y1={yTop}
                 x2={GRID_RIGHT}
                 y2={yTop}
-                stroke="#475569"
+                stroke="#222"
                 strokeWidth="1"
               />
               <text
@@ -179,7 +215,7 @@ export default function LogSheet({ day, index, total, meta = {} }) {
                 y={yTop + ROW_H / 2 + 3}
                 fontSize="9.5"
                 textAnchor="end"
-                fill="#0b1729"
+                fill="#111"
                 fontWeight="600"
               >
                 {ROW_LABELS[r]}
@@ -190,7 +226,7 @@ export default function LogSheet({ day, index, total, meta = {} }) {
                 y={yTop + ROW_H / 2 + 4}
                 fontSize="12"
                 textAnchor="middle"
-                fill={STATUS_META[status].color}
+                fill="#111"
                 fontWeight="700"
               >
                 {day.totals[status].toFixed(2)}
@@ -204,12 +240,12 @@ export default function LogSheet({ day, index, total, meta = {} }) {
           y1={GRID_BOTTOM}
           x2={GRID_RIGHT}
           y2={GRID_BOTTOM}
-          stroke="#475569"
+          stroke="#222"
           strokeWidth="1"
         />
         {/* left + right borders */}
-        <line x1={GRID_LEFT} y1={GRID_TOP} x2={GRID_LEFT} y2={GRID_BOTTOM} stroke="#475569" />
-        <line x1={GRID_RIGHT} y1={GRID_TOP} x2={GRID_RIGHT} y2={GRID_BOTTOM} stroke="#475569" />
+        <line x1={GRID_LEFT} y1={GRID_TOP} x2={GRID_LEFT} y2={GRID_BOTTOM} stroke="#222" />
+        <line x1={GRID_RIGHT} y1={GRID_TOP} x2={GRID_RIGHT} y2={GRID_BOTTOM} stroke="#222" />
 
         {/* Grand total */}
         <text
@@ -217,7 +253,7 @@ export default function LogSheet({ day, index, total, meta = {} }) {
           y={GRID_BOTTOM + 16}
           fontSize="11"
           textAnchor="middle"
-          fill="#0b1729"
+          fill="#111"
           fontWeight="800"
         >
           = {day.total_hours.toFixed(0)}
@@ -239,7 +275,7 @@ export default function LogSheet({ day, index, total, meta = {} }) {
           y={GRID_BOTTOM + 16}
           fontSize="9"
           textAnchor="end"
-          fill="#475569"
+          fill="#111"
           fontWeight="700"
         >
           Remarks
@@ -251,14 +287,14 @@ export default function LogSheet({ day, index, total, meta = {} }) {
               y1={GRID_BOTTOM}
               x2={X(rm.hour)}
               y2={GRID_BOTTOM + 10}
-              stroke="#94a3b8"
+              stroke="#555"
               strokeWidth="0.8"
             />
             <text
               x={X(rm.hour)}
               y={GRID_BOTTOM + 14}
               fontSize="8.5"
-              fill="#334155"
+              fill="#222"
               transform={`rotate(55 ${X(rm.hour)} ${GRID_BOTTOM + 14})`}
             >
               {rm.city}
@@ -279,24 +315,89 @@ export default function LogSheet({ day, index, total, meta = {} }) {
         ))}
       </div>
 
-      {/* Shipping documents + driver certification */}
-      <div className="log-foot">
-        <div className="f">
-          <span className="k">Pro / Shipping no.</span>
-          <span className="v">{meta.proNo || "—"}</span>
+      {/* ---- Shipping documents + instruction ---- */}
+      <div className="dl-ship">
+        <div className="dl-ship-title">Shipping Documents:</div>
+        <div className="dl-line">
+          <span className="lbl">DVL or Manifest No.:</span>
+          <span className="val">{meta.proNo || "—"}</span>
         </div>
-        <div className="f">
-          <span className="k">Shipper &amp; commodity</span>
-          <span className="v">
+        <div className="dl-line">
+          <span className="lbl">Shipper &amp; Commodity:</span>
+          <span className="val">
             {meta.shipper || "—"} · {meta.commodity || "—"}
           </span>
         </div>
-        <div className="f sign">
-          <span className="k">
-            Driver's signature — certifies entries are true &amp; correct
-          </span>
-          <span className="sigline">{meta.driver || ""}</span>
+        <div className="dl-instr">
+          Enter name of place you reported and where released from work and when
+          and where each change of duty occurred. Use time standard of home
+          terminal.
         </div>
+      </div>
+
+      {/* ---- Recap (end-of-day) ---- */}
+      <div className="dl-recap">
+        <table>
+          <thead>
+            <tr>
+              <th className="rh">Recap: Complete at end of day</th>
+              <th>70 Hour / 8 Day Drivers</th>
+              <th>60 Hour / 7 Day Drivers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="rh">
+                On-duty hours today
+                <small>Total of lines 3 &amp; 4</small>
+                <span className="rv">{fmt(recap.on_duty_today)}</span>
+              </td>
+              <td>
+                <span className="ab">A.</span> On duty last 7 days incl. today
+                <span className="rv">{fmt(recap.cycle_total)}</span>
+              </td>
+              <td>
+                <span className="ab">A.</span> On duty last 8 days incl. today
+                <span className="rv">—</span>
+              </td>
+            </tr>
+            <tr>
+              <td className="rh muted">
+                Uses the 70-hour / 8-day cycle (property carrier).
+              </td>
+              <td>
+                <span className="ab">B.</span> Available tomorrow (70 − A)
+                <span className="rv">{fmt(recap.available_tomorrow)}</span>
+              </td>
+              <td>
+                <span className="ab">B.</span> Available tomorrow (60 − A)
+                <span className="rv">—</span>
+              </td>
+            </tr>
+            <tr>
+              <td className="rh muted">
+                * After 34 consecutive hours off duty you have the full
+                70 hours available.
+              </td>
+              <td>
+                <span className="ab">C.</span> On duty last 5 days incl. today
+                <span className="rv">—</span>
+              </td>
+              <td>
+                <span className="ab">C.</span> On duty last 7 days incl. today
+                <span className="rv">—</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* ---- Driver certification ---- */}
+      <div className="dl-sign">
+        <span className="sigline">{meta.driver || ""}</span>
+        <span className="lbl">
+          Driver's signature — certifies these entries are true and correct
+        </span>
       </div>
     </div>
   );

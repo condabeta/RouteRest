@@ -1587,6 +1587,272 @@ body {
   margin-bottom: 0;
 }
 
+/* ---- Faithful FMCSA form rendering ---- */
+.logsheet.dl {
+  color: #111;
+  font-size: 0.8rem;
+}
+
+.dl-titlerow {
+  display: grid;
+  grid-template-columns: 1fr auto 1.4fr;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 2px solid #111;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.dl-title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #111;
+}
+
+.dl-title span {
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+
+.dl-date {
+  text-align: center;
+  min-width: 150px;
+}
+
+.dl-date-vals {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.dl-date-vals span {
+  border-bottom: 1px solid #111;
+  padding: 0 6px 2px;
+}
+
+.dl-date-lbls {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+  font-size: 0.58rem;
+  color: #555;
+  margin-top: 2px;
+}
+
+.dl-original {
+  text-align: right;
+  font-size: 0.66rem;
+  color: #333;
+  line-height: 1.35;
+}
+
+.dl-original .dl-day-of {
+  margin-top: 4px;
+  font-weight: 700;
+  color: #111;
+}
+
+.dl-fromto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 10px;
+}
+
+.dl-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  border-bottom: 1px solid #111;
+  padding-bottom: 2px;
+}
+
+.dl-line .lbl {
+  font-weight: 700;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.dl-line .val {
+  font-size: 0.82rem;
+}
+
+.dl-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.dl-boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.dl-box {
+  border: 1px solid #111;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.dl-box .bv {
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.dl-box .bl {
+  font-size: 0.58rem;
+  color: #444;
+  text-transform: none;
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+.dl-block-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dl-named {
+  border-bottom: 1px solid #111;
+  padding-bottom: 2px;
+}
+
+.dl-named .nv {
+  font-weight: 600;
+  font-size: 0.82rem;
+  min-height: 1.05rem;
+}
+
+.dl-named .nl {
+  font-size: 0.58rem;
+  color: #444;
+}
+
+.dl-ship {
+  margin-top: 14px;
+  border-top: 1px solid #111;
+  padding-top: 10px;
+}
+
+.dl-ship-title {
+  font-weight: 800;
+  font-size: 0.74rem;
+  margin-bottom: 6px;
+}
+
+.dl-ship .dl-line {
+  margin-bottom: 6px;
+}
+
+.dl-instr {
+  font-size: 0.62rem;
+  color: #555;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.dl-recap {
+  margin-top: 14px;
+}
+
+.dl-recap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.66rem;
+}
+
+.dl-recap th,
+.dl-recap td {
+  border: 1px solid #111;
+  padding: 6px 8px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.dl-recap th {
+  background: #f1f3f5;
+  font-weight: 800;
+  font-size: 0.66rem;
+}
+
+.dl-recap th.rh,
+.dl-recap td.rh {
+  width: 38%;
+}
+
+.dl-recap td .ab {
+  font-weight: 800;
+  margin-right: 4px;
+}
+
+.dl-recap td small {
+  display: block;
+  color: #555;
+  font-size: 0.58rem;
+}
+
+.dl-recap td.muted {
+  color: #555;
+  font-style: italic;
+}
+
+.dl-recap .rv {
+  float: right;
+  min-width: 44px;
+  text-align: right;
+  font-weight: 800;
+  border-bottom: 1px solid #111;
+  padding: 0 4px;
+}
+
+.dl-sign {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dl-sign .sigline {
+  font-family: cursive;
+  font-size: 1.05rem;
+  border-bottom: 1px solid #111;
+  padding-bottom: 4px;
+  min-height: 1.4rem;
+  color: #111;
+}
+
+.dl-sign .lbl {
+  font-size: 0.6rem;
+  color: #555;
+  margin-top: 3px;
+}
+
+@media (max-width: 720px) {
+  .dl-titlerow,
+  .dl-fromto,
+  .dl-block,
+  .dl-boxes {
+    grid-template-columns: 1fr;
+  }
+  .dl-original {
+    text-align: left;
+  }
+  .dl-recap table,
+  .dl-recap thead,
+  .dl-recap tbody,
+  .dl-recap tr,
+  .dl-recap th,
+  .dl-recap td {
+    display: block;
+    width: 100%;
+  }
+}
+
 .log-head {
   display: flex;
   justify-content: space-between;

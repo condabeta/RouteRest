@@ -295,14 +295,22 @@ def _round_segments(segments: list) -> list:
     return [seg.as_dict() for seg in segments]
 
 
-def _build_daily_logs(segments: list, start_day: datetime) -> list:
+def _build_daily_logs(
+    segments: list, start_day: datetime, cycle_used_start: float = 0.0
+) -> list:
     """Slice the flat segment list into 24-hour calendar days for the ELD
     grid. Each day reports its per-status hour totals and the segments
     (clamped to that day) needed to draw the grid lines.
 
     The timeline is padded with off-duty time before the shift starts and
     after the trip ends so every log sheet totals exactly 24 hours, as the
-    FMCSA grid requires."""
+    FMCSA grid requires.
+
+    Each day also carries an end-of-day "recap" (the box at the bottom of
+    the official FMCSA log): on-duty hours today, the running 70-hour/8-day
+    cycle total, and the hours that remain available tomorrow. The running
+    cycle starts at the driver's pre-trip `cycle_used_start` and is reset to
+    zero by a 34-hour restart, mirroring the planning engine."""
     if not segments:
         return []
 
@@ -334,6 +342,7 @@ def _build_daily_logs(segments: list, start_day: datetime) -> list:
     last_end = segments[-1].end
     days = []
     cursor = day_start
+    running_cycle = cycle_used_start  # rolling 70/8 on-duty total
     while cursor < last_end:
         next_day = cursor + timedelta(days=1)
         day_segments = []
@@ -346,6 +355,13 @@ def _build_daily_logs(segments: list, start_day: datetime) -> list:
                 continue
             hours = (seg_end - seg_start).total_seconds() / 3600.0
             totals[seg.status] += hours
+            # A 34-hour restart clears the rolling cycle; on-duty work adds
+            # to it. Track this in segment order so the recap matches the
+            # engine's cycle accounting day by day.
+            if "34-hour" in seg.label:
+                running_cycle = 0.0
+            elif seg.status in (DRIVING, ON_DUTY):
+                running_cycle += hours
             day_segments.append({
                 "status": seg.status,
                 # Fractional hours-from-midnight, used to place grid lines.
@@ -356,6 +372,7 @@ def _build_daily_logs(segments: list, start_day: datetime) -> list:
             })
 
         if day_segments:
+            on_duty_today = totals[DRIVING] + totals[ON_DUTY]
             days.append({
                 "date": cursor.date().isoformat(),
                 "segments": day_segments,
@@ -364,6 +381,15 @@ def _build_daily_logs(segments: list, start_day: datetime) -> list:
                 "driving_miles": round(
                     totals[DRIVING] * AVERAGE_SPEED_MPH, 1
                 ),
+                "recap": {
+                    "on_duty_today": round(on_duty_today, 2),
+                    # A: rolling on-duty total over the 70/8 window.
+                    "cycle_total": round(running_cycle, 2),
+                    # B: hours left tomorrow (70 minus A).
+                    "available_tomorrow": round(
+                        max(0.0, CYCLE_LIMIT_HOURS - running_cycle), 2
+                    ),
+                },
             })
         cursor = next_day
 
@@ -515,7 +541,7 @@ def plan_trip(
         distance_miles=s.total_miles,
     ))
 
-    daily_logs = _build_daily_logs(s.segments, start_time)
+    daily_logs = _build_daily_logs(s.segments, start_time, cycle_used)
 
     driving_hours = sum(
         seg.hours for seg in s.segments if seg.status == DRIVING
