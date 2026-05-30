@@ -23,13 +23,10 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
-  // Optional carrier / driver details the user can type for the log sheets.
-  const [details, setDetails] = useState({});
 
-  const handleSubmit = async (payload, tripDetails) => {
+  const handleSubmit = async (payload) => {
     setLoading(true);
     setError("");
-    setDetails(tripDetails || {});
     try {
       const data = await planTrip(payload);
       setResult(data);
@@ -49,32 +46,24 @@ export default function App() {
 
   const plan = result?.plan;
 
-  // Fill the standard FMCSA log header fields. The user may type carrier /
-  // driver / equipment details; anything left blank falls back to a sensible
-  // sample so the sheet always reads as "filled out".
+  // Fill the standard FMCSA log header fields from the trip plus representative
+  // carrier / equipment details (the assessment collects only the four route
+  // inputs, so these sample values make the sheet read as "filled out").
   const city = (loc) => (loc ? loc.split(",")[0].trim() : "—");
-  const pick = (val, fallback) =>
-    val && String(val).trim() ? String(val).trim() : fallback;
   const logMeta = plan
     ? {
         from: city(plan.locations?.current?.name),
         to: city(plan.locations?.dropoff?.name),
-        carrier: pick(details.carrier, "RouteRest Carriers LLC"),
-        office: pick(details.office, "100 Wacker Dr, Chicago, IL 60601"),
-        homeTerminal: pick(
-          details.homeTerminal,
-          "1450 Industrial Pkwy, Chicago, IL 60616"
-        ),
-        tractor: pick(details.tractor, "1042"),
-        trailer: pick(details.trailer, "7731"),
-        coDriver: pick(details.coDriver, "None"),
-        driver: pick(details.driver, "Sample Driver"),
-        shipper: pick(details.shipper, city(plan.locations?.pickup?.name)),
-        commodity: pick(details.commodity, "General freight"),
-        proNo: pick(
-          details.proNo,
-          `RR-${String(result?.id ?? 1).padStart(5, "0")}`
-        ),
+        carrier: "RouteRest Carriers LLC",
+        office: "100 Wacker Dr, Chicago, IL 60601",
+        homeTerminal: "1450 Industrial Pkwy, Chicago, IL 60616",
+        tractor: "1042",
+        trailer: "7731",
+        coDriver: "None",
+        driver: "Sample Driver",
+        shipper: city(plan.locations?.pickup?.name),
+        commodity: "General freight",
+        proNo: `RR-${String(result?.id ?? 1).padStart(5, "0")}`,
       }
     : null;
 

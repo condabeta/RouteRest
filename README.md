@@ -46,8 +46,6 @@ drop off, and how many cycle hours you've already used — and RouteRest returns
   format, one per calendar day, with the carrier, equipment, shipping, remarks
   and end-of-day recap fields filled in. Longer trips automatically produce
   multiple sheets.
-- **Editable carrier & driver details** — optionally enter the driver, carrier,
-  truck/trailer numbers and manifest no. to personalize the log sheets.
 - **Download as PDF** — export the daily logs to a clean, printable PDF.
 
 ---
