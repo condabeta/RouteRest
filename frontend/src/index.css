@@ -1639,6 +1639,69 @@ body {
   color: var(--navy-900);
 }
 
+/* FMCSA header / footer fields */
+.log-fields,
+.log-foot {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 18px;
+  margin-bottom: 12px;
+}
+
+.log-foot {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--slate-200);
+}
+
+.log-fields .f,
+.log-foot .f {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.log-fields .k,
+.log-foot .k {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate-500);
+  font-weight: 600;
+}
+
+.log-fields .v,
+.log-foot .v {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  border-bottom: 1px solid var(--slate-300);
+  padding-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.log-foot .sign {
+  grid-column: span 1;
+}
+
+.log-foot .sigline {
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 1.05rem;
+  color: var(--navy-800);
+  border-bottom: 1px solid var(--slate-300);
+  padding-bottom: 1px;
+  min-height: 1.2rem;
+}
+
+@media (max-width: 560px) {
+  .log-fields,
+  .log-foot {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .log-grid-svg {
   width: 100%;
   height: auto;

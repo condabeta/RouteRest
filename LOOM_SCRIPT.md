@@ -20,11 +20,17 @@ A suggested outline for the demo video.
     city remarks at each duty change. Hit **Print logs**.
 
 ## 3. HOS accuracy (60s)
+- Point to the **HOS Compliance card** — it re-scans the generated plan and shows
+  each limit was respected (11h, 14h, 30-min break, fuel, 70/8, 34h restart).
 - Pick a long trip and show that:
   - Driving never exceeds 11 hrs before a 10-hr rest appears.
   - A 30-minute break shows up after 8 hrs of driving.
   - A fuel stop lands near every 1,000 miles.
   - If the cycle is near 70, a 34-hr restart is inserted.
+- **Say this disclaimer:** "The planner follows the assignment assumptions
+  (property carrier, 70hr/8day, no adverse conditions) and the major FMCSA
+  limits using a 55 mph average — it's a planning aid, not a legal compliance
+  tool. Sleeper-berth splits and adverse-driving exceptions are out of scope."
 
 ## 4. Code tour (90s)
 - **Backend** `trips/services/hos_planner.py`: the simulation loop — explain how
@@ -36,5 +42,5 @@ A suggested outline for the demo video.
 - `components/RouteMap.jsx`: the Leaflet map.
 
 ## 5. Wrap (20s)
-- Mention deployment (Vercel frontend + Render backend) and that all map/routing
-  APIs are free and keyless.
+- Mention deployment (Vercel frontend + PythonAnywhere backend) and that all
+  map/routing APIs are free and keyless, with retry + friendly error handling.

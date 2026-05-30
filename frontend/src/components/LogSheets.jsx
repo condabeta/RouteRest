@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LogSheet from "./LogSheet";
 
-export default function LogSheets({ dailyLogs }) {
+export default function LogSheets({ dailyLogs, meta }) {
   const [active, setActive] = useState(0);
   const [showAll, setShowAll] = useState(false);
 
@@ -68,6 +68,7 @@ export default function LogSheets({ dailyLogs }) {
                 day={d}
                 index={i}
                 total={dailyLogs.length}
+                meta={meta}
               />
             ))
           : (
@@ -75,6 +76,7 @@ export default function LogSheets({ dailyLogs }) {
                 day={dailyLogs[active]}
                 index={active}
                 total={dailyLogs.length}
+                meta={meta}
               />
             )}
       </div>

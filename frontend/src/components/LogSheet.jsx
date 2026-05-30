@@ -32,7 +32,7 @@ const HOUR_LABELS = [
   "Noon", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "Mid",
 ];
 
-export default function LogSheet({ day, index, total }) {
+export default function LogSheet({ day, index, total, meta = {} }) {
   const segments = day.segments || [];
 
   // Build the duty-status step line path.
@@ -88,8 +88,18 @@ export default function LogSheet({ day, index, total }) {
         </div>
       </div>
 
-      <div style={{ fontSize: "0.72rem", color: "#64748b", marginBottom: 4 }}>
+      <div style={{ fontSize: "0.72rem", color: "#64748b", marginBottom: 8 }}>
         {fmtDate(day.date)}
+      </div>
+
+      {/* Standard FMCSA header fields */}
+      <div className="log-fields">
+        <div className="f"><span className="k">From</span><span className="v">{meta.from || "—"}</span></div>
+        <div className="f"><span className="k">To</span><span className="v">{meta.to || "—"}</span></div>
+        <div className="f"><span className="k">Carrier</span><span className="v">{meta.carrier || "—"}</span></div>
+        <div className="f"><span className="k">Main office</span><span className="v">{meta.office || "—"}</span></div>
+        <div className="f"><span className="k">Tractor / Trailer no.</span><span className="v">{meta.tractor || "—"} / {meta.trailer || "—"}</span></div>
+        <div className="f"><span className="k">Co-driver</span><span className="v">{meta.coDriver || "None"}</span></div>
       </div>
 
       <svg
@@ -267,6 +277,26 @@ export default function LogSheet({ day, index, total }) {
             {STATUS_META[s].label}
           </span>
         ))}
+      </div>
+
+      {/* Shipping documents + driver certification */}
+      <div className="log-foot">
+        <div className="f">
+          <span className="k">Pro / Shipping no.</span>
+          <span className="v">{meta.proNo || "—"}</span>
+        </div>
+        <div className="f">
+          <span className="k">Shipper &amp; commodity</span>
+          <span className="v">
+            {meta.shipper || "—"} · {meta.commodity || "—"}
+          </span>
+        </div>
+        <div className="f sign">
+          <span className="k">
+            Driver's signature — certifies entries are true &amp; correct
+          </span>
+          <span className="sigline">{meta.driver || ""}</span>
+        </div>
       </div>
     </div>
   );

@@ -45,6 +45,25 @@ export default function App() {
 
   const plan = result?.plan;
 
+  // Fill the standard FMCSA log header fields from the trip + sample carrier
+  // details (the assessment collects only the four route inputs).
+  const city = (loc) => (loc ? loc.split(",")[0].trim() : "—");
+  const logMeta = plan
+    ? {
+        from: city(plan.locations?.current?.name),
+        to: city(plan.locations?.dropoff?.name),
+        carrier: "RouteRest Carriers LLC",
+        office: "Chicago, IL",
+        tractor: "1042",
+        trailer: "7731",
+        coDriver: "None",
+        driver: "Sample Driver",
+        shipper: city(plan.locations?.pickup?.name),
+        commodity: "General freight",
+        proNo: `RR-${String(result?.id ?? 1).padStart(5, "0")}`,
+      }
+    : null;
+
   return (
     <div className="app">
       <header className="topbar">
@@ -134,7 +153,7 @@ export default function App() {
               </div>
 
               {/* Daily Log Sheets full width */}
-              <LogSheets dailyLogs={plan.daily_logs} />
+              <LogSheets dailyLogs={plan.daily_logs} meta={logMeta} />
             </>
           )}
         </div>
