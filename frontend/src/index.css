@@ -654,11 +654,9 @@ body {
   border: 3px solid rgba(255, 255, 255, 0.45);
   box-shadow: var(--shadow-lg);
   background-color: #0e1c33;
-  /* driver.png (your photo) draws on top; the bundled SVG is the default */
-  background-image: url("/driver1.jpg");
-  background-size: cover, cover;
-  background-position: center top, center top;
-  background-repeat: no-repeat, no-repeat;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
 }
 
 .driver-overlay {

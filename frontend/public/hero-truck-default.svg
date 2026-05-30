@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16304f"/>
+      <stop offset="0.6" stop-color="#0f1e36"/>
+      <stop offset="1" stop-color="#0a1424"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <!-- horizon road -->
+  <path d="M0 560 H1200 V800 H0 Z" fill="#0b1626"/>
+  <path d="M520 560 L470 800 H560 L580 560 Z" fill="#1e3a5f" opacity="0.6"/>
+  <path d="M600 560 L600 800" stroke="#fbbf24" stroke-width="6" stroke-dasharray="26 30" opacity="0.7"/>
+  <!-- simple truck silhouette -->
+  <g transform="translate(470 430)" fill="#fbbf24" stroke="#0a1424" stroke-width="4">
+    <rect x="0" y="40" width="150" height="90" rx="4"/>
+    <path d="M150 70 h45 l30 30 v30 h-75 z"/>
+    <circle cx="40" cy="135" r="18" fill="#0a1424" stroke="none"/>
+    <circle cx="180" cy="135" r="18" fill="#0a1424" stroke="none"/>
+  </g>
+</svg>
