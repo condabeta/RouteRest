@@ -25,6 +25,17 @@ const EXAMPLES = [
   },
 ];
 
+const DETAIL_FIELDS = [
+  { key: "driver", label: "Driver name", placeholder: "e.g. Jordan Miller" },
+  { key: "carrier", label: "Carrier name", placeholder: "e.g. Acme Freight LLC" },
+  { key: "office", label: "Main office address", placeholder: "City, state" },
+  { key: "homeTerminal", label: "Home terminal address", placeholder: "City, state" },
+  { key: "tractor", label: "Tractor / truck no.", placeholder: "e.g. 1042" },
+  { key: "trailer", label: "Trailer no.", placeholder: "e.g. 7731" },
+  { key: "proNo", label: "Manifest / Pro no.", placeholder: "e.g. RR-00042" },
+  { key: "commodity", label: "Commodity", placeholder: "e.g. General freight" },
+];
+
 export default function TripForm({ onSubmit, loading }) {
   const [form, setForm] = useState({
     current_location: "",
@@ -32,10 +43,15 @@ export default function TripForm({ onSubmit, loading }) {
     dropoff_location: "",
     current_cycle_used: "",
   });
+  const [details, setDetails] = useState({});
+  const [showDetails, setShowDetails] = useState(false);
   const [error, setError] = useState("");
 
   const update = (key) => (e) =>
     setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const setDetail = (key) => (e) =>
+    setDetails((d) => ({ ...d, [key]: e.target.value }));
 
   const setLoc = (key) => (val) =>
     setForm((f) => ({ ...f, [key]: val }));
@@ -66,7 +82,7 @@ export default function TripForm({ onSubmit, loading }) {
       setError("Current cycle used must be a number between 0 and 70.");
       return;
     }
-    onSubmit({ ...form, current_cycle_used: cycle });
+    onSubmit({ ...form, current_cycle_used: cycle }, details);
   };
 
   return (
@@ -166,6 +182,33 @@ export default function TripForm({ onSubmit, loading }) {
           <p className="field-help">
             Cycle = on-duty hours used in your last 8 days (0–70).
           </p>
+
+          <button
+            type="button"
+            className="details-toggle"
+            onClick={() => setShowDetails((v) => !v)}
+            aria-expanded={showDetails}
+          >
+            {showDetails ? "− Hide" : "+ Add"} carrier &amp; driver details
+            <span className="details-opt">(optional — fills the log sheet)</span>
+          </button>
+
+          {showDetails && (
+            <div className="details-grid">
+              {DETAIL_FIELDS.map((f) => (
+                <div className="field" key={f.key}>
+                  <label>{f.label}</label>
+                  <input
+                    className="no-pin"
+                    type="text"
+                    value={details[f.key] || ""}
+                    onChange={setDetail(f.key)}
+                    placeholder={f.placeholder}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
           <button className="btn btn-go" type="submit" disabled={loading}>
             <span className="btn-label">

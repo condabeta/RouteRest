@@ -7,8 +7,15 @@ export default function LogSheets({ dailyLogs, meta }) {
 
   if (!dailyLogs?.length) return null;
 
+  // For a clean PDF we print every day. Reveal all sheets, let React paint,
+  // then open the browser's print/save-as-PDF dialog.
+  const handlePdf = () => {
+    setShowAll(true);
+    setTimeout(() => window.print(), 120);
+  };
+
   return (
-    <div className="card">
+    <div className="card logsheets-card">
       <div className="card-header">
         <h2>Daily Log Sheets</h2>
         <span className="sub">
@@ -40,9 +47,9 @@ export default function LogSheets({ dailyLogs, meta }) {
           <button
             className="btn secondary"
             style={{ width: "auto", padding: "8px 14px" }}
-            onClick={() => window.print()}
+            onClick={handlePdf}
           >
-            🖨 Print logs
+            ⬇ Download PDF
           </button>
         </div>
 

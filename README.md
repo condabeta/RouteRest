@@ -37,13 +37,18 @@ drop off, and how many cycle hours you've already used — and RouteRest returns
   full addresses.
 - **Route map** — the full driving route with colored markers for the start,
   pickup, and drop-off, plus smaller markers for fuel stops, breaks, and rests.
+- **Turn-by-turn directions** — plain-English driving instructions for each leg
+  ("Merge onto I-10 E", "Take the ramp…") with per-step mileage.
 - **Trip summary** — total distance, driving time, on-duty time, number of log
   days, fuel stops, rests, and the cycle hours used at the end of the trip.
 - **Itinerary** — every stop with arrival time and trip mileage.
 - **Daily ELD log sheets** — drawn in the official *Driver's Daily Log* grid
-  format, one per calendar day, with the duty-status line, per-row totals, and
-  remarks. Longer trips automatically produce multiple sheets, and the logs are
-  **print-ready**.
+  format, one per calendar day, with the carrier, equipment, shipping, remarks
+  and end-of-day recap fields filled in. Longer trips automatically produce
+  multiple sheets.
+- **Editable carrier & driver details** — optionally enter the driver, carrier,
+  truck/trailer numbers and manifest no. to personalize the log sheets.
+- **Download as PDF** — export the daily logs to a clean, printable PDF.
 
 ---
 
