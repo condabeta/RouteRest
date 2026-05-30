@@ -24,7 +24,11 @@ frontend/.vite/
 .DS_Store
 Thumbs.db
 
-# Playwright (used only for local smoke testing)
+# Misc / temp scratch files
+_*
+*.tmp
+
+# Screenshots / smoke-test output (keep committed docs + public assets)
 test-results/
 playwright-report/
 *.png
