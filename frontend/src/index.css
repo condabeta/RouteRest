@@ -2340,13 +2340,22 @@ body::before {
 .dir-toggle {
   width: auto !important;
   padding: 9px 18px !important;
-  margin: 0 !important;
+  margin: 0 auto !important;
+  display: block;
 }
 
 .dir-wrap {
   margin-top: 18px;
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .dir-wrap {
+    grid-template-columns: 1fr;
+  }
 }
 
 .dir-leg {
